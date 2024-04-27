@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pacuka</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Montserrat, sans-serif;
+      font-weight: bold;
+      background-color: #111;
+      color: #fff;
+      transition: background-color 0.5s ease;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+    body.dark-mode {
+      background-color: #111;
+      color: #fff;
+    }
+    @keyframes slideInFromLeft {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInFromRight {
+      from { opacity: 0; transform: translateX(10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes grow {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+    @keyframes slideInFromBottom {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 20px;
+      animation: slideInFromTop 1s ease;
+      margin-bottom: 20px;
+    }
+    nav {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      background-color: #4CAF50;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      margin-bottom: 20px;
+      animation: slideInFromTop 1s ease;
+      z-index: 1;
+      position: relative;
+      padding-bottom: 5px;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background-color: #4CAF50;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 25px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      transition: background-color 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    nav a:hover {
+      background-color: #45a049;
+      animation: grow 0.3s ease;
+      z-index: 2;
+    }
+    #content-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding-top: 100px;
+      border-radius: 20px;
+    }
+    section {
+      width: 100%;
+      max-width: 800px;
+      padding: 50px;
+      margin: 20px 0;
+      border-radius: 10px;
+      background-color: #333;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: slideInFromBottom 1s ease;
+    }
+    section h2 {
+      margin-bottom: 20px;
+    }
+    section.dark-mode {
+      background-color: #111;
+      color: #fff;
+    }
+    #modeSwitch {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeIn 1s ease forwards;
+    }
+    #modeSwitch + label {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9998;
+      padding: 10px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      animation: fadeIn 1s ease forwards;
+    }
+    #modeSwitch:checked + label {
+      background-color: #333;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      animation: slideInFromBottom 1s ease;
+    }
+    .project-separator {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
+    .linnnk {
+      color: white;
+    }
+    h3 {
+      margin: 20px;
+      font-size: large;
+    }
+    .hely {
+      margin: 20px;
+    }
+    .vertical-separator {
+      border-left: 1px solid #ddd;
+    }
+    .titkoss{
+    margin:10px;
+    }
+    .rflog{ width:100px; height:100px; border-radius: 50%; max-width: 100px; margin: 0;
+    }
+    .mail{
+    width:100px; height:100px;  max-width: 100px; margin: 0;
+    }
+    .dc{
+    width:100px; height:100px;  max-width: 100px; margin: 0;
+    }
+    .theme{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="theme">
+  <input type="checkbox" id="modeSwitch">
+  <label for="modeSwitch">🌙</label>
+  </div>
+  <div id="content-container">
+    <header>
+      <h1>Pacuka</h1>
+      <p>Üdvözlehelletel köszöntelek!</p>
+    </header>
+    <nav>
+      <a href="#home">Kezdőlap</a>
+      <a href="#about">Rólam</a>
+      <a href="#projects">Projektek</a>
+    </nav>
+    <section id="home">
+      <h2>Kezdőlap</h2>
+      <p>Ez itt a kezdőlap. Van de minek is?</p>
+    </section>
+    <section id="about">
+      <h2>Rólam</h2>
+      <p>Üdv! Pacuka vagyok és hobbiból fordító is. :P</p>
+    </section>
+    <section id="projects">
+      <h2>Projektek</h2>
+      <table>
+        <tr>
+          <td class="project">
+            <div id="refilc">
+              <img class="rflog" src="https://refilc.hu/image/brand/logo.png" alt="Refilc logo">
+              <h3>Refilc</h3>
+              <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el a:</p>
+              <ul>
+                <li class="hely"><a class="linnnk" href="https://github.com/refilc/naplo">Refilc GitHub Repository</a></li>
+                <li class="hely"><a class="linnnk" href="https://refilc.hu/">Refilc Website</a></li>
+              </ul>
+            </div>
+          </td>
+          <td class="vertical-separator"></td>
+          <td class="project">
+            <div class="titkoss" id="titok">
+              <h3>Titok</h3>
+              <p>Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <hr class="project-separator">
+    </section>
+
+  </div>
+  <footer>
+    <p>&copy; 2024 Pacuka.hu. Minden jog fenntartva.</p>
+    <p>Készítette: Pacuka</p>
+    <div class="contact">
+    <a href="mailto:pacuka@vivaldi.net"><img class="mail" src="https://webmail.vivaldi.net/logo/Webmail-logo-blue.png" alt="E-mail"></a>
+    <a href="discordapp.com/users/711460576236404738"><img class="dc" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord"></a>
+  </div>
+  </footer>
+  <script>
+    const darkModeCookie = document.cookie.split('; ').find(row => row.startsWith('darkMode='));
+  if (darkModeCookie) {
+    const darkModeEnabled = darkModeCookie.split('=')[1] === 'true';
+    document.body.classList.toggle('dark-mode', darkModeEnabled);
+    const modeLabel = document.querySelector('label[for="modeSwitch"]');
+    if (darkModeEnabled) {
+      modeLabel.innerHTML = '☀️';
+      document.body.style.backgroundColor = '#fff';
+    } else {
+      modeLabel.innerHTML = '🌙';
+      document.body.style.backgroundColor = '#111';
+    }
+  }
+
+  const modeSwitch = document.getElementById('modeSwitch');
+  const content = document.querySelectorAll('section');
+
+  modeSwitch.addEventListener('change', () => {
+    document.body.classList.toggle('dark-mode', modeSwitch.checked);
+    content.forEach(section => {
+      section.classList.toggle('dark-mode', modeSwitch.checked);
+    });
+    const modeLabel = document.querySelector('label[for="modeSwitch"]');
+    if (modeSwitch.checked) {
+      modeLabel.innerHTML = '☀️';
+      document.body.style.backgroundColor = '#fff';
+    } else {
+      modeLabel.innerHTML = '🌙';
+      document.body.style.backgroundColor = '#111';
+    }
+    document.cookie = `darkMode=${modeSwitch.checked}; expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
+  });
+  </script>
+</body>
+</html>
