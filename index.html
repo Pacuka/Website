@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
@@ -51,7 +51,7 @@
       margin-bottom: 20px;
     }
     nav {
-      display: flex;
+      display: none;
       width: 100%;
       justify-content: center;
       background-color: #4CAF50;
@@ -80,8 +80,6 @@
       padding: 10px 20px;
       margin: 0 25px;
       border-radius: 5px;
-      background-color: #4CAF50;
-      transition: background-color 0.3s ease;
       position: relative;
       z-index: 1;
     }
@@ -118,30 +116,6 @@
       background-color: #111;
       color: #fff;
     }
-    #modeSwitch {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      opacity: 0;
-      transform: scale(0.8);
-      animation: fadeIn 1s ease forwards;
-    }
-    #modeSwitch + label {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9998;
-      padding: 10px;
-      border-radius: 50%;
-      background-color: #4CAF50;
-      color: #fff;
-      cursor: pointer;
-      animation: fadeIn 1s ease forwards;
-    }
-    #modeSwitch:checked + label {
-      background-color: #333;
-    }
     footer {
       text-align: center;
       padding: 20px;
@@ -169,27 +143,79 @@
     .vertical-separator {
       border-left: 1px solid #ddd;
     }
-    .titkoss{
-    margin:10px;
+    .titkoss {
+      margin: 10px;
     }
-    .rflog{ width:100px; height:100px; border-radius: 50%; max-width: 100px; margin: 0;
+    .rflog {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      max-width: 100px;
+      margin: 0;
     }
-    .mail{
-    width:100px; height:100px;  max-width: 100px; margin: 0;
+    .mail {
+      width: 100px;
+      height: 100px;
+      max-width: 100px;
+      margin: 0;
     }
-    .dc{
-    width:100px; height:100px;  max-width: 100px; margin: 0;
+    .dc {
+      width: 100px;
+      height: 100px;
+      max-width: 100px;
+      margin: 0;
     }
-    .theme{
+    .theme {
       float: left;
+      display: block;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      cursor: pointer;
+    }
+    .theme-icon {
+      font-size: 24px;
+    }
+    nav.show-nav {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #4CAF50;
+      border-radius: 0 0 20px 20px;
+      z-index: 999;
+      padding: 10px;
+      animation: slideInFromRight 0.5s ease;
+    }
+    #hamburgerIcon {
+      display: block;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    @media only screen and (min-width: 601px) {
+      .theme {
+        display: none;
+      }
+      nav {
+        display: flex;
+      }
+      #hamburgerIcon {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="theme">
-  <input type="checkbox" id="modeSwitch">
-  <label for="modeSwitch">🌙</label>
-  </div>
+  <button id="hamburgerIcon">&#9776;</button>
   <div id="content-container">
     <header>
       <h1>Pacuka</h1>
@@ -234,49 +260,54 @@
       </table>
       <hr class="project-separator">
     </section>
-
   </div>
   <footer>
     <p>&copy; 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by <a class="linnnk" href="https://duxy.hu">Duxy.hu</a></p>
     <p>Készítette: Pacuka</p>
     <div class="contact">
-    <a href="mailto:pacuka@vivaldi.net"><img class="mail" src="https://webmail.vivaldi.net/logo/Webmail-logo-blue.png" alt="E-mail"></a>
-    <a href="https://discordapp.com/users/711460576236404738"><img class="dc" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord"></a>
-  </div>
+      <a href="mailto:pacuka@vivaldi.net"><img class="mail" src="https://webmail.vivaldi.net/logo/Webmail-logo-blue.png" alt="E-mail"></a>
+      <a href="https://discordapp.com/users/711460576236404738"><img class="dc" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord"></a>
+    </div>
   </footer>
   <script>
-    const darkModeCookie = document.cookie.split('; ').find(row => row.startsWith('darkMode='));
-  if (darkModeCookie) {
-    const darkModeEnabled = darkModeCookie.split('=')[1] === 'true';
-    document.body.classList.toggle('dark-mode', darkModeEnabled);
-    const modeLabel = document.querySelector('label[for="modeSwitch"]');
-    if (darkModeEnabled) {
-      modeLabel.innerHTML = '☀️';
-      document.body.style.backgroundColor = '#fff';
-    } else {
-      modeLabel.innerHTML = '🌙';
-      document.body.style.backgroundColor = '#111';
-    }
-  }
+    const hamburgerIcon = document.getElementById('hamburgerIcon');
+    const nav = document.querySelector('nav');
 
-  const modeSwitch = document.getElementById('modeSwitch');
-  const content = document.querySelectorAll('section');
-
-  modeSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('dark-mode', modeSwitch.checked);
-    content.forEach(section => {
-      section.classList.toggle('dark-mode', modeSwitch.checked);
+    hamburgerIcon.addEventListener('click', () => {
+      nav.classList.toggle('show-nav');
     });
-    const modeLabel = document.querySelector('label[for="modeSwitch"]');
-    if (modeSwitch.checked) {
-      modeLabel.innerHTML = '☀️';
-      document.body.style.backgroundColor = '#fff';
-    } else {
-      modeLabel.innerHTML = '🌙';
-      document.body.style.backgroundColor = '#111';
+    const darkModeCookie = document.cookie.split('; ').find(row => row.startsWith('darkMode='));
+    if (darkModeCookie) {
+      const darkModeEnabled = darkModeCookie.split('=')[1] === 'true';
+      document.body.classList.toggle('dark-mode', darkModeEnabled);
+      const modeLabel = document.querySelector('label[for="modeSwitch"]');
+      if (darkModeEnabled) {
+        modeLabel.innerHTML = '☀️';
+        document.body.style.backgroundColor = '#fff';
+      } else {
+        modeLabel.innerHTML = '🌙';
+        document.body.style.backgroundColor = '#111';
+      }
     }
-    document.cookie = `darkMode=${modeSwitch.checked}; expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
-  });
+
+    const modeSwitch = document.getElementById('modeSwitch');
+    const content = document.querySelectorAll('section');
+
+    modeSwitch.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode', modeSwitch.checked);
+      content.forEach(section => {
+        section.classList.toggle('dark-mode', modeSwitch.checked);
+      });
+      const modeLabel = document.querySelector('label[for="modeSwitch"]');
+      if (modeSwitch.checked) {
+        modeLabel.innerHTML = '☀️';
+        document.body.style.backgroundColor = '#fff';
+      } else {
+        modeLabel.innerHTML = '🌙';
+        document.body.style.backgroundColor = '#111';
+      }
+      document.cookie = `darkMode=${modeSwitch.checked}; expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
+    });
   </script>
 </body>
 </html>
