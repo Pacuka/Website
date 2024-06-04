@@ -14,31 +14,25 @@
     body {
       font-family: Montserrat, sans-serif;
       font-weight: bold;
-      background-color: #111;
-      color: #fff;
-      transition: background-color 0.5s ease;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      background-color: #fff;
+      color: #000;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     body.dark-mode {
       background-color: #111;
       color: #fff;
     }
-    @keyframes slideInFromLeft {
-      from { opacity: 0; transform: translateX(-10px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes slideInFromRight {
-      from { opacity: 0; transform: translateX(10px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes grow {
-      from { transform: scale(1); }
-      to { transform: scale(1.1); }
+    @keyframes slideInFromTop {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes slideInFromBottom {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes grow {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
     }
     header {
       width: 100%;
@@ -146,36 +140,26 @@
     .titkoss {
       margin: 10px;
     }
-    .rflog {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      max-width: 100px;
-      margin: 0;
-    }
-    .mail {
-      width: 100px;
-      height: 100px;
-      max-width: 100px;
-      margin: 0;
-    }
-    .dc {
+    .rflog, .mail, .dc {
       width: 100px;
       height: 100px;
       max-width: 100px;
       margin: 0;
     }
     .theme {
-      float: left;
-      display: block;
       position: fixed;
       top: 20px;
       left: 20px;
       z-index: 9999;
       cursor: pointer;
-    }
-    .theme-icon {
+      background-color: transparent;
+      border: none;
+      color: #000;
       font-size: 24px;
+      transition: color 0.5s ease;
+    }
+    body.dark-mode .theme {
+      color: #fff;
     }
     nav.show-nav {
       display: flex;
@@ -187,7 +171,7 @@
       border-radius: 0 0 20px 20px;
       z-index: 999;
       padding: 10px;
-      animation: slideInFromRight 0.5s ease;
+      animation: slideInFromTop 0.5s ease;
     }
     #hamburgerIcon {
       display: block;
@@ -197,25 +181,27 @@
       z-index: 9999;
       background-color: transparent;
       border: none;
-      color: #fff;
+      color: #000;
       font-size: 24px;
       cursor: pointer;
+      transition: color 0.5s ease;
+    }
+    body.dark-mode #hamburgerIcon {
+      color: #fff;
     }
     @media only screen and (min-width: 601px) {
-      .theme {
+      #hamburgerIcon {
         display: none;
       }
       nav {
         display: flex;
       }
-      #hamburgerIcon {
-        display: none;
-      }
     }
   </style>
 </head>
 <body>
-  <button id="hamburgerIcon">&#9776;</button>
+  <button id="hamburgerIcon" aria-label="Toggle Navigation">&#9776;</button>
+  <button class="theme" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
   <div id="content-container">
     <header>
       <h1>Pacuka</h1>
@@ -272,41 +258,23 @@
   <script>
     const hamburgerIcon = document.getElementById('hamburgerIcon');
     const nav = document.querySelector('nav');
+    const themeToggle = document.getElementById('themeToggle');
 
     hamburgerIcon.addEventListener('click', () => {
       nav.classList.toggle('show-nav');
     });
+
     const darkModeCookie = document.cookie.split('; ').find(row => row.startsWith('darkMode='));
     if (darkModeCookie) {
       const darkModeEnabled = darkModeCookie.split('=')[1] === 'true';
       document.body.classList.toggle('dark-mode', darkModeEnabled);
-      const modeLabel = document.querySelector('label[for="modeSwitch"]');
-      if (darkModeEnabled) {
-        modeLabel.innerHTML = '☀️';
-        document.body.style.backgroundColor = '#fff';
-      } else {
-        modeLabel.innerHTML = '🌙';
-        document.body.style.backgroundColor = '#111';
-      }
+      themeToggle.innerHTML = darkModeEnabled ? '☀️' : '🌙';
     }
 
-    const modeSwitch = document.getElementById('modeSwitch');
-    const content = document.querySelectorAll('section');
-
-    modeSwitch.addEventListener('change', () => {
-      document.body.classList.toggle('dark-mode', modeSwitch.checked);
-      content.forEach(section => {
-        section.classList.toggle('dark-mode', modeSwitch.checked);
-      });
-      const modeLabel = document.querySelector('label[for="modeSwitch"]');
-      if (modeSwitch.checked) {
-        modeLabel.innerHTML = '☀️';
-        document.body.style.backgroundColor = '#fff';
-      } else {
-        modeLabel.innerHTML = '🌙';
-        document.body.style.backgroundColor = '#111';
-      }
-      document.cookie = `darkMode=${modeSwitch.checked}; expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
+    themeToggle.addEventListener('click', () => {
+      const darkModeEnabled = document.body.classList.toggle('dark-mode');
+      themeToggle.innerHTML = darkModeEnabled ? '☀️' : '🌙';
+      document.cookie = `darkMode=${darkModeEnabled}; expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
     });
   </script>
 </body>
