@@ -30,10 +30,6 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes grow {
-      from { transform: scale(1); }
-      to { transform: scale(1.1); }
-    }
     header {
       width: 100%;
       padding: 20px;
@@ -76,10 +72,11 @@
       border-radius: 5px;
       position: relative;
       z-index: 1;
+      transition: background-color 0.2s ease, transform 0.2s ease;
     }
     nav a:hover {
       background-color: #45a049;
-      animation: grow 0.3s ease;
+      transform: scale(1.1);
       z-index: 2;
     }
     #content-container {
@@ -145,6 +142,10 @@
       height: 100px;
       max-width: 100px;
       margin: 0;
+      transition: transform 0.2s ease;
+    }
+    .rflog:hover, .mail:hover, .dc:hover {
+      transform: scale(1.1);
     }
     .theme {
       position: fixed;
