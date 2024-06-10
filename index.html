@@ -133,6 +133,7 @@
     }
     .vertical-separator {
       border-left: 1px solid #ddd;
+      margin: 0 10px;
     }
     .titkoss {
       margin: 10px;
@@ -198,6 +199,24 @@
         display: flex;
       }
     }
+    .project-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .project {
+      flex: 1;
+      margin: 10px;
+      max-width: 30%;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #444;
+    }
+    .project img {
+      width: 100px;
+      height: 100px;
+    }
   </style>
 </head>
 <body>
@@ -223,47 +242,39 @@
     </section>
     <section id="projects">
       <h2>Projektek</h2>
-      <table>
-        <tr>
-          <td class="project">
-            <div id="refilc">
-              <img class="rflog" src="https://refilc.hu/image/brand/logo.png" alt="Refilc logo">
-              <h3>Refilc</h3>
-              <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el a:</p>
-              <ul>
-                <li class="hely"><a class="linnnk" href="https://github.com/refilc/naplo">Refilc GitHub Repository</a></li>
-                <li class="hely"><a class="linnnk" href="https://refilc.hu/">Refilc Website</a></li>
-              </ul>
-            </div>
-          </td>
-          <td class="vertical-separator"></td>
-          <td class="project">
-            <div class="titkoss" id="titok">
-              <h3>Titok 👀</h3>
-              <p>Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.</p>
-            </div>
-          </td>
-          <td class="vertical-separator"></td>
-          <td class="project">
-            <div id="harmadik">
-              <img class="dc" src="https://minecraft.wiki/images/Music_Disc_otherside_JE1_BE1.png?980f0" alt="Project 3 logo">
-              <h3>Pacuka's Web Music</h3>
-              <p>Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugottan belehalgathatsz. :P</p>
-              <ul>
-                <li class="hely"><a class="linnnk" href="https://pacuka.github.io/Music/">Player Website</a></li>
-                <li class="hely"><a class="linnnk" href="https://github.com/Pacuka/Music">GitHub Repository</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <div class="project-container">
+        <div class="project" id="refilc">
+          <img class="rflog" src="https://refilc.hu/image/brand/logo.png" alt="Refilc logo">
+          <h3>Refilc</h3>
+          <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el a:</p>
+          <ul>
+            <li class="hely"><a class="linnnk" href="https://github.com/refilc/naplo">Refilc GitHub Repository</a></li>
+            <li class="hely"><a class="linnnk" href="https://refilc.hu/">Refilc Website</a></li>
+          </ul>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="project titkoss" id="titok">
+          <h3>Titok 👀</h3>
+          <p>Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.</p>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="project" id="harmadik">
+          <img class="dc" src="https://minecraft.wiki/images/Music_Disc_otherside_JE1_BE1.png?980f0" alt="Project 3 logo">
+          <h3>Pacuka's Web Music</h3>
+          <p>Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
+          <ul>
+            <li class="hely"><a class="linnnk" href="https://pacuka.github.io/Music/">Player Website</a></li>
+            <li class="hely"><a class="linnnk" href="https://github.com/Pacuka/Music">GitHub Repository</a></li>
+          </ul>
+        </div>
+      </div>
       <hr class="project-separator">
     </section>
   </div>
   <footer>
     <p>&copy; 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by <a class="linnnk" href="https://duxy.hu">Duxy.hu</a></p>
     <p>Készítette: Pacuka</p>
-	<p>Kapcsolat:👇</p>
+    <p>Kapcsolat:👇</p>
     <div class="contact">
       <a href="mailto:pacuka@vivaldi.net"><img class="mail" src="https://webmail.vivaldi.net/logo/Webmail-logo-blue.png" alt="E-mail"></a>
       <a href="https://discordapp.com/users/711460576236404738"><img class="dc" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord"></a>
