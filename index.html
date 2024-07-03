@@ -138,14 +138,16 @@
     .titkoss {
       margin: 10px;
     }
-    .rflog, .mail, .dc {
+    .rflog, .mail, .musik, .dc {
       width: 100px;
       height: 100px;
       max-width: 100px;
       margin: 0;
       transition: transform 0.2s ease;
+      display: block;
+      margin: auto;
     }
-    .rflog:hover, .mail:hover, .dc:hover {
+    .rflog:hover, .mail:hover, .musik:hover {
       transform: scale(1.1);
     }
     .theme {
@@ -212,10 +214,20 @@
       border-radius: 10px;
       padding: 20px;
       background-color: #444;
+      text-align: center;
     }
     .project img {
       width: 100px;
       height: 100px;
+      display: block;
+      margin: auto;
+    }
+    .contact {
+      display: flex;
+      justify-content: center;
+    }
+    .contact a {
+      margin: 0 10px;
     }
   </style>
 </head>
@@ -246,7 +258,7 @@
         <div class="project" id="refilc">
           <img class="rflog" src="https://refilc.hu/image/brand/logo.png" alt="Refilc logo">
           <h3>Refilc</h3>
-          <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el a:</p>
+          <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el az alábbiakra:</p>
           <ul>
             <li class="hely"><a class="linnnk" href="https://github.com/refilc/naplo">Refilc GitHub Repository</a></li>
             <li class="hely"><a class="linnnk" href="https://refilc.hu/">Refilc Website</a></li>
@@ -259,7 +271,7 @@
         </div>
         <div class="vertical-separator"></div>
         <div class="project" id="harmadik">
-          <img class="dc" src="https://minecraft.wiki/images/Music_Disc_otherside_JE1_BE1.png?980f0" alt="Project 3 logo">
+          <img class="musik" src="https://minecraft.wiki/images/Music_Disc_otherside_JE1_BE1.png?980f0" alt="Project 3 logo">
           <h3>Pacuka's Web Music</h3>
           <p>Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
           <ul>
