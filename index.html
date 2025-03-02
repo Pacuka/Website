@@ -4,24 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pacuka</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="https://pacuka.github.io/Website/favicon.ico" type="image/x-icon">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Montserrat, sans-serif;
-      font-weight: bold;
-      background-color: #fff;
-      color: #000;
-      transition: background-color 0.5s ease, color 0.5s ease;
-    }
-    body.dark-mode {
-      background-color: #111;
-      color: #fff;
-    }
     @keyframes slideInFromTop {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -30,295 +15,170 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    header {
-      width: 100%;
-      padding: 20px;
-      text-align: center;
-      background-color: #4CAF50;
-      color: #fff;
-      border-radius: 20px;
-      animation: slideInFromTop 1s ease;
-      margin-bottom: 20px;
+    
+    body {
+      font-family: Montserrat, sans-serif;
+      font-weight: bold;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
-    nav {
-      display: none;
-      width: 100%;
-      justify-content: center;
-      background-color: #4CAF50;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      margin-bottom: 20px;
-      animation: slideInFromTop 1s ease;
-      z-index: 1;
-      position: relative;
-      padding-bottom: 5px;
-    }
-    nav::before {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: 0;
-      right: 0;
-      height: 10px;
-      background-color: #4CAF50;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-    }
-    nav a {
-      color: inherit;
-      text-decoration: none;
-      padding: 10px 20px;
-      margin: 0 25px;
-      border-radius: 5px;
-      position: relative;
-      z-index: 1;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-    nav a:hover {
-      background-color: #45a049;
-      transform: scale(1.1);
-      z-index: 2;
-    }
-    #content-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      padding-top: 100px;
-      border-radius: 20px;
-    }
-    section {
-      width: 100%;
-      max-width: 800px;
-      padding: 50px;
-      margin: 20px 0;
-      border-radius: 10px;
-      background-color: #333;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      animation: slideInFromBottom 1s ease;
-    }
-    section h2 {
-      margin-bottom: 20px;
-    }
-    section.dark-mode {
+    body.dark-mode {
       background-color: #111;
       color: #fff;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
+    
+    .custom-header {
+      background-color: #4CAF50;
+      border-radius: 20px;
+      animation: slideInFromTop 1s ease;
+    }
+    
+    .custom-nav {
+      background-color: #4CAF50;
+      border-radius: 0 0 20px 20px;
+      animation: slideInFromTop 1s ease;
+    }
+    
+    .custom-section {
       background-color: #333;
-      color: #fff;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       animation: slideInFromBottom 1s ease;
     }
-    .project-separator {
-      border: none;
-      border-top: 1px solid #ddd;
-      margin: 20px 0;
+    
+    .dark-mode .custom-section {
+      background-color: #111;
     }
-    .linnnk {
-      color: white;
-    }
-    h3 {
-      margin: 20px;
-      font-size: large;
-    }
-    .hely {
-      margin: 20px;
-    }
-    .titkoss {
+    
+    .project-card {
+      background-color: #444;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       margin: 10px;
+      flex: 1 1 30%;
     }
+    
     .rflog, .mail, .musik, .dc {
       width: 100px;
       height: 100px;
-      max-width: 100px;
-      margin: 0;
       transition: transform 0.2s ease;
-      display: block;
-      margin: auto;
     }
-    .rflog:hover, .mail:hover, .musik:hover, .dc:hover{
+    
+    .rflog:hover, .mail:hover, .musik:hover, .dc:hover {
       transform: scale(1.1);
     }
-    .theme {
+
+    h1{
+      font-weight: bolder !important;
+    }
+    
+    .theme-toggle {
       position: fixed;
       top: 20px;
       left: 20px;
-      z-index: 9999;
+      z-index: 1000;
       cursor: pointer;
-      background-color: transparent;
+      border-radius: 12px;
+      background-color: #11111100;
       border: none;
-      color: #000;
-      font-size: 24px;
-      transition: color 0.5s ease;
     }
-    body.dark-mode .theme {
-      color: #fff;
-    }
-    nav.show-nav {
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      top: 50px;
-      right: 0;
-      background-color: #4CAF50;
-      border-radius: 0 0 20px 20px;
-      z-index: 999;
-      padding: 10px;
-      animation: slideInFromTop 0.5s ease;
-    }
-    #hamburgerIcon {
-      display: block;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      background-color: transparent;
-      border: none;
-      color: #000;
-      font-size: 24px;
-      cursor: pointer;
-      transition: color 0.5s ease;
-    }
-    body.dark-mode #hamburgerIcon {
-      color: #fff;
-    }
-    @media only screen and (min-width: 601px) {
-      #hamburgerIcon {
-        display: none;
-      }
-      nav {
-        display: flex;
-      }
-    }
-    .project-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-    }
-    .project {
-      flex: 1;
-      margin: 10px;
-      max-width: 30%;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-      background-color: #444;
-      text-align: center;
-    }
-    .project img {
-      width: 100px;
-      height: 100px;
-      display: block;
-      margin: auto;
-    }
-    .contact {
-      display: flex;
-      justify-content: center;
-    }
-    .contact a {
-      margin: 0 10px;
-    }
-    @media only screen and (max-width: 600px) {
-  .project-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .project {
-    max-width: 90%;
-    margin: 10px auto; 
-  }
-  .project img {
-    width: 80px;
-    height: auto; 
-  }
-}
-
   </style>
 </head>
-<body>
-  <button id="hamburgerIcon" aria-label="Toggle Navigation">&#9776;</button>
-  <button class="theme" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
-  <div id="content-container">
-    <header>
-      <h1>Pacuka</h1>
-      <p>Üdvözlehelletel köszöntelek!</p>
+<body class="dark-mode">
+  <button class="theme-toggle btn btn-light" id="themeToggle">☀️</button>
+
+  <div class="container">
+    <header class="text-center text-white p-4 mb-4 mt-5 custom-header">
+      <h1 class="display-4">Pacuka</h1>
+      <p class="lead">Üdvözlehelletel köszöntelek!</p>
     </header>
-    <nav>
-      <a href="#home">Kezdőlap</a>
-      <a href="#about">Rólam</a>
-      <a href="#projects">Projektek</a>
+
+    <nav class="navbar navbar-expand-lg custom-nav mb-4">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <div class="navbar-nav">
+            <a class="nav-link text-white mx-3" href="#home">Kezdőlap</a>
+            <a class="nav-link text-white mx-3" href="#about">Rólam</a>
+            <a class="nav-link text-white mx-3" href="#projects">Projektek</a>
+          </div>
+        </div>
+      </div>
     </nav>
-    <section id="home">
-      <h2>Kezdőlap</h2>
+
+    <section id="home" class="custom-section text-white p-5 mb-4">
+      <h2 class="mb-4">Kezdőlap</h2>
       <p>Ez itt a kezdőlap. Van de minek is?</p>
     </section>
-    <section id="about">
-      <h2>Rólam</h2>
-      <p>Üdv! Pacuka vagyok egy srác aki szeret az interneten lenni. Hobbiból fordító vagyok viszonylag sok helyen :P</p>
+
+    <section id="about" class="custom-section text-white p-5 mb-4">
+      <h2 class="mb-4">Rólam</h2>
+      <p>Üdv! Pacuka vagyok egy srác aki szeret az interneten lenni. Fordítgatni viszonylag sok helyen :P <br> Jelenleg tanulányokat folytatok...</p>
     </section>
-    <section id="projects">
-      <h2>Projektek</h2>
-      <div class="project-container">
-        <div class="project" id="refilc">
-          <img class="rflog" src="https://refilc.hu/image/brand/logo.png" alt="Refilc logo">
-          <h3>Refilc</h3>
-          <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. További információkért látogass el az alábbiakra:</p>
-          <ul>
-            <li class="hely"><a class="linnnk" href="https://github.com/refilc/naplo">Refilc GitHub Repository</a></li>
-            <li class="hely"><a class="linnnk" href="https://refilc.hu/">Refilc Website</a></li>
+
+    <section id="projects" class="custom-section text-white p-5 mb-4">
+      <h2 class="mb-4">Projektek</h2>
+      <div class="row">
+        <div class="project-card col-md-4 p-4">
+          <img class="rflog d-block mx-auto" src="Pacuka_files/logo.png" alt="Refilc logo">
+          <h3 class="text-center my-3">Refilc</h3>
+          <p>A Refilc egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez.</p>
+          <ul class="list-unstyled">
+            <li class="my-2"><a class="text-white" href="https://github.com/refilc/naplo">GitHub</a></li>
+            <li class="my-2"><a class="text-white" href="https://refilc.hu/">Weboldal</a></li>
           </ul>
         </div>
-        <div class="project titkoss" id="titok">
-          <h3>Titok 👀</h3>
+
+        <div class="project-card col-md-4 p-4">
+          <h3 class="text-center my-3">Titok 👀</h3>
           <p>Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.</p>
         </div>
-        <div class="project" id="harmadik">
-          <img class="rflog" src="https://pacuka.github.io/IdoJos/favicon.ico" alt="Jós logo">
-          <h3>Idő Jós</h3>
-          <p>Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️. További információkért látogass el az alábbiakra:</p>
-          <ul>
-            <li class="hely"><a class="linnnk" href="https://pacuka.github.io/IdoJos/">Jósló oldal</a></li>
-            <li class="hely"><a class="linnnk" href="https://github.com/Pacuka/IdoJos">GitHub Repository</a></li>
+
+        <div class="project-card col-md-4 p-4">
+          <img class="rflog d-block mx-auto" src="Pacuka_files/favicon.ico" alt="Jós logo">
+          <h3 class="text-center my-3">Idő Jós</h3>
+          <p>Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️.</p>
+          <ul class="list-unstyled">
+            <li class="my-2"><a class="text-white" href="https://pacuka.github.io/IdoJos/">Jósló</a></li>
+            <li class="my-2"><a class="text-white" href="https://github.com/Pacuka/IdoJos">GitHub</a></li>
           </ul>
         </div>
-        <div class="project" id="harmadik">
-          <img class="musik" src="https://minecraft.wiki/images/Music_Disc_otherside_JE1_BE1.png?980f0" alt="Project 3 logo">
-          <h3>Pacuka's Web Music</h3>
+
+        <div class="project-card col-md-4 p-4">
+          <img class="musik d-block mx-auto" src="Pacuka_files/Music_Disc_otherside_JE1_BE1.webp" alt="Web Music Player">
+          <h3 class="text-center my-3">Pacuka's Web Music</h3>
           <p>Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
-          <ul>
-            <li class="hely"><a class="linnnk" href="https://pacuka.github.io/Music/">Player Website</a></li>
-            <li class="hely"><a class="linnnk" href="https://github.com/Pacuka/Music">GitHub Repository</a></li>
+          <ul class="list-unstyled">
+            <li class="my-2"><a class="text-white" href="https://pacuka.github.io/Music/">Player Website</a></li>
+            <li class="my-2"><a class="text-white" href="https://github.com/Pacuka/Music">GitHub Repository</a></li>
           </ul>
         </div>
       </div>
     </section>
   </div>
-  <footer>
-    <p>&copy; 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by <a class="linnnk" href="https://duxy.hu">Duxy.hu</a></p>
-    <p>Készítette: Pacuka</p>
-    <p>Kapcsolat:👇</p>
-    <div class="contact">
-      <a href="mailto:pacuka@etik.com"><img class="mail" src="https://webmail.vivaldi.net/logo/Webmail-logo-blue.png" alt="E-mail"></a>
-      <a href="https://discordapp.com/users/711460576236404738"><img class="dc" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord"></a>
+
+  <footer class="bg-dark text-white py-4 mt-4">
+    <div class="container text-center">
+      <p>© 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by <a class="text-white" href="https://duxy.hu/">Duxy.hu</a></p>
+      <p>Készítette: Pacuka</p>
+      <p>Kapcsolat:👇</p>
+      <div class="d-flex justify-content-center my-3">
+        <a href="mailto:pacuka@etik.com" class="mx-3">
+          <img class="mail" src="Pacuka_files/Webmail-logo-blue.png" alt="E-mail">
+        </a>
+        <a href="https://discordapp.com/users/711460576236404738" class="mx-3">
+          <img class="dc" src="Pacuka_files/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord">
+        </a>
+      </div>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const hamburgerIcon = document.getElementById('hamburgerIcon');
-    const nav = document.querySelector('nav');
     const themeToggle = document.getElementById('themeToggle');
-
-    hamburgerIcon.addEventListener('click', () => {
-      nav.classList.toggle('show-nav');
-    });
-
     const darkModeCookie = document.cookie.split('; ').find(row => row.startsWith('darkMode='));
+    
     if (darkModeCookie) {
       const darkModeEnabled = darkModeCookie.split('=')[1] === 'true';
       document.body.classList.toggle('dark-mode', darkModeEnabled);
