@@ -1,6 +1,920 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacuka - Webfejlesztő & Fordító</title>
+    <link rel="icon" href="https://pacuka.github.io/Website/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <style>
+        :root {
+            /* Material You Color Scheme - Android Stílus */
+            --primary: #1a73e8;
+            --on-primary: #ffffff;
+            --primary-container: #d2e3fc;
+            --on-primary-container: #001d3d;
+            --secondary: #f57c00;
+            --on-secondary: #ffffff;
+            --secondary-container: #ffdcc3;
+            --on-secondary-container: #2c1600;
+            --tertiary: #0f9d58;
+            --on-tertiary: #ffffff;
+            --tertiary-container: #c5ebcf;
+            --on-tertiary-container: #00210e;
+            --background: #f8f9fa;
+            --on-background: #1a1c1e;
+            --surface: #ffffff;
+            --on-surface: #1a1c1e;
+            --surface-variant: #e8eaed;
+            --on-surface-variant: #5f6368;
+            --outline: #dadce0;
+            --shadow: #0000001a;
+            --error: #d93025;
+            --on-error: #ffffff;
+            --error-container: #fce8e6;
+            --on-error-container: #410002;
+            
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            
+            /* Borders */
+            --border-radius-sm: 4px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+            --border-radius-full: 999px;
+            
+            /* Elevation */
+            --elevation-1: 0 1px 2px rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            --elevation-2: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+            --elevation-3: 0 2px 6px 2px rgba(60,64,67,0.15), 0 1px 2px rgba(60,64,67,0.3);
+            
+            /* Transitions */
+            --transition-short: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            
+            /* Typography */
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #8ab4f8;
+                --on-primary: #202124;
+                --primary-container: #3c4043;
+                --on-primary-container: #d2e3fc;
+                --secondary: #fbbc04;
+                --on-secondary: #202124;
+                --secondary-container: #5c3115;
+                --on-secondary-container: #ffdcc3;
+                --tertiary: #34a853;
+                --on-tertiary: #202124;
+                --tertiary-container: #0a3a23;
+                --on-tertiary-container: #c5ebcf;
+                --background: #202124;
+                --on-background: #e8eaed;
+                --surface: #2d2e30;
+                --on-surface: #e8eaed;
+                --surface-variant: #3c4043;
+                --on-surface-variant: #bdc1c6;
+                --outline: #5f6368;
+                --shadow: #00000033;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: var(--on-background);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Android status bar */
+        .android-status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background-color: var(--surface);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--spacing-md);
+            font-size: 12px;
+            color: var(--on-surface);
+            z-index: 1000;
+            box-shadow: var(--elevation-1);
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        /* Doodle Elements */
+        .doodle {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .doodle.circle {
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .doodle.squiggle {
+            border-top: 2px dashed var(--secondary);
+            border-radius: 50%;
+            animation: rotate 25s infinite linear;
+        }
+
+        .doodle.star {
+            background-color: var(--tertiary);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        .doodle.triangle {
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid var(--secondary);
+            animation: float 12s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, -5px) rotate(2deg); }
+            50% { transform: translate(-5px, 5px) rotate(-2deg); }
+            75% { transform: translate(5px, 5px) rotate(2deg); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.2); opacity: 0.25; }
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--surface);
+            position: sticky;
+            top: 24px;
+            z-index: 100;
+            box-shadow: var(--elevation-1);
+            margin-top: 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-weight: 500;
+            font-size: var(--font-size-lg);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: var(--on-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-md);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .nav-links a {
+            color: var(--on-surface);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            transition: all var(--transition-short);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-short);
+        }
+
+        .nav-links a:hover {
+            background-color: var(--surface-variant);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--on-surface);
+            cursor: pointer;
+            font-size: var(--font-size-xl);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--spacing-xxl) var(--spacing-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: var(--font-size-xxl);
+            margin-bottom: var(--spacing-md);
+            font-weight: 500;
+            color: var(--on-background);
+        }
+
+        .hero p {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-xl);
+            color: var(--on-surface-variant);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background-color: var(--primary);
+            color: var(--on-primary);
+            text-decoration: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            transition: all var(--transition-short);
+            box-shadow: var(--elevation-1);
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            transform: translateY(-2px);
+            box-shadow: var(--elevation-2);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+            width: 100%;
+        }
+
+        section {
+            margin-bottom: var(--spacing-xxl);
+            background-color: var(--surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--elevation-1);
+        }
+
+        section h2 {
+            font-size: var(--font-size-xl);
+            color: var(--primary);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--outline);
+        }
+
+        section h2 .material-symbols-outlined {
+            font-size: 1.2em;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-md);
+            border-left: 3px solid var(--primary);
+        }
+
+        .about-image {
+            flex: 0 0 200px;
+            height: 200px;
+            border-radius: var(--border-radius-full);
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: var(--elevation-2);
+        }
+
+        .about-image .material-symbols-outlined {
+            font-size: 100px;
+            color: white;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .project-card {
+            background-color: var(--surface);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--elevation-1);
+            transition: all var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--outline);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--elevation-3);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            height: 160px;
+            background-color: var(--surface-variant);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .firka-header {
+            background: linear-gradient(45deg, var(--primary), #8ab4f8);
+        }
+
+        .secret-header {
+            background: linear-gradient(45deg, #5f6368, #9aa0a6);
+        }
+
+        .weather-header {
+            background: linear-gradient(45deg, var(--tertiary), #34a853);
+        }
+
+        .music-header {
+            background: linear-gradient(45deg, var(--secondary), #fbbc04);
+        }
+
+        .project-header .material-symbols-outlined {
+            font-size: 80px;
+            color: white;
+        }
+
+        .project-body {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-sm);
+            color: var(--on-surface);
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: var(--on-surface-variant);
+            margin-bottom: var(--spacing-md);
+            flex-grow: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: auto;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--surface-variant);
+            color: var(--on-surface);
+            text-decoration: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            transition: all var(--transition-short);
+            border: 1px solid var(--outline);
+        }
+
+        .project-link:hover {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            color: var(--on-surface-variant);
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--on-surface);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: color var(--transition-short);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-md);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            background-color: var(--surface-variant);
+        }
+
+        .copyright {
+            font-size: var(--font-size-sm);
+            color: var(--on-surface-variant);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: var(--spacing-xl);
+            right: var(--spacing-xl);
+            width: 56px;
+            height: 56px;
+            background-color: var(--primary);
+            color: var(--on-primary);
+            border-radius: var(--border-radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--elevation-3);
+            cursor: pointer;
+            transition: all var(--transition-short);
+            z-index: 99;
+        }
+
+        .fab:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--surface);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--elevation-2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: var(--font-size-xl);
+            }
+            
+            .hero p {
+                font-size: var(--font-size-md);
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: var(--spacing-lg);
+            }
+            
+            .fab {
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Android Status Bar -->
+    <div class="android-status-bar">
+        <div class="status-left">
+            <span>9:41</span>
+        </div>
+        <div class="status-right">
+            <span class="material-symbols-outlined">signal_cellular_alt</span>
+            <span class="material-symbols-outlined">wifi</span>
+            <span class="material-symbols-outlined">battery_full</span>
+        </div>
+    </div>
+    
+    <!-- Doodle elements -->
+    <div class="doodle circle" style="width: 100px; height: 100px; top: 15%; left: 5%;"></div>
+    <div class="doodle squiggle" style="width: 150px; height: 20px; top: 40%; right: 8%;"></div>
+    <div class="doodle star" style="width: 60px; height: 60px; top: 70%; left: 10%;"></div>
+    <div class="doodle triangle" style="width: 40px; height: 40px; top: 85%; right: 15%;"></div>
+    <div class="doodle circle" style="width: 80px; height: 80px; top: 30%; right: 3%;"></div>
+    <div class="doodle squiggle" style="width: 120px; height: 20px; top: 60%; left: 8%;"></div>
+    <div class="doodle star" style="width: 40px; height: 40px; top: 20%; right: 20%;"></div>
+    
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">code</span>
+                </div>
+                <span>Pacuka</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#" class="active">Kezdőlap</a>
+                <a href="#">Rólam</a>
+                <a href="#">Projektek</a>
+                <a href="#">Kapcsolat</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Üdvözöllek a webhelyemen!</h1>
+            <p>Pacuka vagyok, egy srác aki szeret az interneten lenni, fordítani és kódolni. Fedezd fel projektjeimet és kreatív munkáimat!</p>
+            <a href="#projects" class="cta-button">
+                <span class="material-symbols-outlined">rocket_launch</span>
+                Projektek megtekintése
+            </a>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2>
+                <span class="material-symbols-outlined">person</span>
+                Rólam
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Üdv! Pacuka vagyok, egy srác aki szeret az interneten lenni. Fordítgatni viszonylag sok helyen :P</p>
+                    <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az online közösségek és a nyílt forráskódú szoftverek különleges helyet foglalnak el a szívemben.</p>
+                    <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg az alábbi elérhetőségeken!</p>
+                </div>
+                <div class="about-image">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>
+                <span class="material-symbols-outlined">folder</span>
+                Projektjeim
+            </h2>
+            <div class="projects-grid">
+                <!-- Firka Project -->
+                <div class="project-card">
+                    <div class="project-header firka-header">
+                        <span class="material-symbols-outlined">school</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Firka</h3>
+                        <p class="project-description">A Firka egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/firka-app" class="project-link" target="_blank">
+                                <span class="material-symbols-outlined">code</span>
+                                GitHub
+                            </a>
+                            <a href="https://firka.app" class="project-link" target="_blank">
+                                <span class="material-symbols-outlined">public</span>
+                                Weboldal
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secret Project -->
+                <div class="project-card">
+                    <div class="project-header secret-header">
+                        <span class="material-symbols-outlined">lock</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Titok 👀</h3>
+                        <p class="project-description">Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad. Hamarosan további információkkal szolgálunk!</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span class="material-symbols-outlined">visibility_off</span>
+                                Titkos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weather Project -->
+                <div class="project-card">
+                    <div class="project-header weather-header">
+                        <span class="material-symbols-outlined">acute</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Idő Jós</h3>
+                        <p class="project-description">Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️. Gyors, pontos időjárás-előrejelzés a kedvenc helyeidre.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span class="material-symbols-outlined">psychology</span>
+                                Jósló
+                            </a>
+                            <a href="#" class="project-link">
+                                <span class="material-symbols-outlined">code</span>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Music Player -->
+                <div class="project-card">
+                    <div class="project-header music-header">
+                        <span class="material-symbols-outlined">music_note</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Pacuka's Web Music</h3>
+                        <p class="project-description">Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                Lejátszó
+                            </a>
+                            <a href="#" class="project-link">
+                                <span class="material-symbols-outlined">code</span>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="mailto:contact@pacuka.hu">
+                    <span class="material-symbols-outlined">mail</span>
+                    E-mail
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">forum</span>
+                    Discord
+                </a>
+                <a href="https://github.com/pacuka" target="_blank">
+                    <span class="material-symbols-outlined">code</span>
+                    GitHub
+                </a>
+            </div>
+            
+            <div class="copyright">
+                © 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by Duxy.hu
+            </div>
+            
+            <div class="copyright">
+                Készítette: Pacuka
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="fab" title="Ugrás a lap tetejére">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(event.target) && 
+                !mobileMenuBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Create more doodle elements dynamically
+        function createDoodleElements() {
+            const body = document.body;
+            const doodleTypes = ['circle', 'squiggle', 'star', 'triangle'];
+            const colors = [getComputedStyle(document.documentElement).getPropertyValue('--primary'), 
+                            getComputedStyle(document.documentElement).getPropertyValue('--secondary'),
+                            getComputedStyle(document.documentElement).getPropertyValue('--tertiary')];
+            
+            for (let i = 0; i < 15; i++) {
+                const type = doodleTypes[Math.floor(Math.random() * doodleTypes.length)];
+                const doodle = document.createElement('div');
+                doodle.className = `doodle ${type}`;
+                
+                const size = Math.random() * 80 + 20;
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const rotation = Math.random() * 360;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                if (type === 'circle') {
+                    doodle.style.width = `${size}px`;
+                    doodle.style.height = `${size}px`;
+                    doodle.style.borderColor = color;
+                } else if (type === 'squiggle') {
+                    doodle.style.width = `${size * 2}px`;
+                    doodle.style.height = '20px';
+                    doodle.style.borderTopColor = color;
+                } else if (type === 'star') {
+                    doodle.style.width = `${size}px`;
+                    doodle.style.height = `${size}px`;
+                    doodle.style.backgroundColor = color;
+                } else if (type === 'triangle') {
+                    doodle.style.width = '0';
+                    doodle.style.height = '0';
+                    doodle.style.borderLeft = `${size/2}px solid transparent`;
+                    doodle.style.borderRight = `${size/2}px solid transparent`;
+                    doodle.style.borderBottom = `${size}px solid ${color}`;
+                }
+                
+                doodle.style.top = `${top}%`;
+                doodle.style.left = `${left}%`;
+                
+                // Set random animation delay
+                doodle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                body.appendChild(doodle);
+            }
+        }
+        
+        // Create doodle elements on page load
+        window.addEventListener('DOMContentLoaded', createDoodleElements);
+        
+        // Scroll to top functionality
+        document.getElementById('fab').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show/hide FAB based on scroll position
+        window.addEventListener('scroll', function() {
+            const fab = document.getElementById('fab');
+            if (window.scrollY > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="hu">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pacuka</title>
