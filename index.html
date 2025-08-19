@@ -3,912 +3,662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacuka - Webfejlesztő & Fordító</title>
-    <link rel="icon" href="https://pacuka.github.io/Website/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <title>Pacuka - Portfólió</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Material You Color Scheme - Android Stílus */
-            --primary: #1a73e8;
-            --on-primary: #ffffff;
-            --primary-container: #d2e3fc;
-            --on-primary-container: #001d3d;
-            --secondary: #f57c00;
-            --on-secondary: #ffffff;
-            --secondary-container: #ffdcc3;
-            --on-secondary-container: #2c1600;
-            --tertiary: #0f9d58;
-            --on-tertiary: #ffffff;
-            --tertiary-container: #c5ebcf;
-            --on-tertiary-container: #00210e;
-            --background: #f8f9fa;
-            --on-background: #1a1c1e;
-            --surface: #ffffff;
-            --on-surface: #1a1c1e;
-            --surface-variant: #e8eaed;
-            --on-surface-variant: #5f6368;
-            --outline: #dadce0;
-            --shadow: #0000001a;
-            --error: #d93025;
-            --on-error: #ffffff;
-            --error-container: #fce8e6;
-            --on-error-container: #410002;
-            
-            /* Spacing */
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            --spacing-xxl: 48px;
-            
-            /* Borders */
-            --border-radius-sm: 4px;
-            --border-radius-md: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
-            --border-radius-full: 999px;
-            
-            /* Elevation */
-            --elevation-1: 0 1px 2px rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-            --elevation-2: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
-            --elevation-3: 0 2px 6px 2px rgba(60,64,67,0.15), 0 1px 2px rgba(60,64,67,0.3);
-            
-            /* Transitions */
-            --transition-short: 0.2s ease;
-            --transition-medium: 0.3s ease;
-            
-            /* Typography */
-            --font-size-sm: 0.875rem;
-            --font-size-md: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.5rem;
-            --font-size-xxl: 2rem;
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --accent: #EA4335;
+            --light: #FBBC05;
+            --dark: #1a1a1a;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #8ab4f8;
-                --on-primary: #202124;
-                --primary-container: #3c4043;
-                --on-primary-container: #d2e3fc;
-                --secondary: #fbbc04;
-                --on-secondary: #202124;
-                --secondary-container: #5c3115;
-                --on-secondary-container: #ffdcc3;
-                --tertiary: #34a853;
-                --on-tertiary: #202124;
-                --tertiary-container: #0a3a23;
-                --on-tertiary-container: #c5ebcf;
-                --background: #202124;
-                --on-background: #e8eaed;
-                --surface: #2d2e30;
-                --on-surface: #e8eaed;
-                --surface-variant: #3c4043;
-                --on-surface-variant: #bdc1c6;
-                --outline: #5f6368;
-                --shadow: #00000033;
-            }
-        }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background);
-            color: var(--on-background);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Android status bar */
-        .android-status-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 24px;
-            background-color: var(--surface);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 var(--spacing-md);
-            font-size: 12px;
-            color: var(--on-surface);
-            z-index: 1000;
-            box-shadow: var(--elevation-1);
-        }
-
-        .status-left, .status-right {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        /* Doodle Elements */
-        .doodle {
-            position: absolute;
-            z-index: -1;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        .doodle.circle {
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
+            font-family: 'Poppins', sans-serif;
         }
         
-        .doodle.squiggle {
-            border-top: 2px dashed var(--secondary);
-            border-radius: 50%;
-            animation: rotate 25s infinite linear;
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
         }
-
-        .doodle.star {
-            background-color: var(--tertiary);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: pulse 8s infinite ease-in-out;
-        }
-
-        .doodle.triangle {
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 35px solid var(--secondary);
-            animation: float 12s infinite ease-in-out reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(5px, -5px) rotate(2deg); }
-            50% { transform: translate(-5px, 5px) rotate(-2deg); }
-            75% { transform: translate(5px, 5px) rotate(2deg); }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.15; }
-            50% { transform: scale(1.2); opacity: 0.25; }
-        }
-
-        /* Header & Navigation */
+        
+        /* Header stílusok */
         header {
-            background-color: var(--surface);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
-            top: 24px;
+            top: 0;
             z-index: 100;
-            box-shadow: var(--elevation-1);
-            margin-top: 24px;
+            padding: 15px 5%;
+            border-radius: 0 0 16px 16px;
         }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--spacing-sm) var(--spacing-md);
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            font-weight: 500;
-            font-size: var(--font-size-lg);
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary);
-            color: var(--on-primary);
-            width: 36px;
-            height: 36px;
-            border-radius: var(--border-radius-md);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: var(--spacing-sm);
-        }
-
-        .nav-links a {
-            color: var(--on-surface);
-            text-decoration: none;
-            font-weight: 500;
-            padding: var(--spacing-sm) var(--spacing-md);
-            border-radius: var(--border-radius-md);
-            transition: all var(--transition-short);
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--primary);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform var(--transition-short);
-        }
-
-        .nav-links a:hover {
-            background-color: var(--surface-variant);
-        }
-
-        .nav-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .nav-links a.active::after {
-            transform: scaleX(1);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--on-surface);
-            cursor: pointer;
-            font-size: var(--font-size-xl);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: var(--spacing-xxl) var(--spacing-md);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: var(--font-size-xxl);
-            margin-bottom: var(--spacing-md);
-            font-weight: 500;
-            color: var(--on-background);
-        }
-
-        .hero p {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--spacing-xl);
-            color: var(--on-surface-variant);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-md) var(--spacing-xl);
-            background-color: var(--primary);
-            color: var(--on-primary);
-            text-decoration: none;
-            border-radius: var(--border-radius-md);
-            font-weight: 500;
-            transition: all var(--transition-short);
-            box-shadow: var(--elevation-1);
-        }
-
-        .cta-button:hover {
-            background-color: var(--primary-container);
-            color: var(--on-primary-container);
-            transform: translateY(-2px);
-            box-shadow: var(--elevation-2);
-        }
-
-        /* Main Content */
-        main {
-            flex: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: var(--spacing-xl) var(--spacing-md);
-            width: 100%;
         }
-
-        section {
-            margin-bottom: var(--spacing-xxl);
-            background-color: var(--surface);
-            padding: var(--spacing-xl);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--elevation-1);
-        }
-
-        section h2 {
-            font-size: var(--font-size-xl);
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--outline);
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 20px;
         }
-
-        section h2 .material-symbols-outlined {
-            font-size: 1.2em;
+        
+        nav ul li a:hover {
+            color: var(--primary);
+            background: rgba(66, 133, 244, 0.1);
         }
-
-        /* About Section */
-        .about-content {
-            display: flex;
-            gap: var(--spacing-xl);
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text p {
-            margin-bottom: var(--spacing-md);
-            padding-left: var(--spacing-md);
-            border-left: 3px solid var(--primary);
-        }
-
-        .about-image {
-            flex: 0 0 200px;
-            height: 200px;
-            border-radius: var(--border-radius-full);
-            background: linear-gradient(135deg, var(--primary), var(--tertiary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: var(--elevation-2);
-        }
-
-        .about-image .material-symbols-outlined {
-            font-size: 100px;
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #6f42c1 100%);
             color: white;
+            padding: 80px 5%;
+            border-radius: 16px;
+            margin: 30px 5%;
+            text-align: center;
         }
-
-        /* Projects Grid */
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            animation: fadeInUp 1.4s ease;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Section stílusok */
+        .section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        /* Rólam section */
+        .about {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .about-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .about-content {
+            max-width: 800px;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        /* Projektek section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: var(--spacing-xl);
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
         }
-
+        
         .project-card {
-            background-color: var(--surface);
-            border-radius: var(--border-radius-lg);
+            background: white;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--elevation-1);
-            transition: all var(--transition-medium);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--outline);
-            position: relative;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease;
         }
-
+        
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--elevation-3);
-            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
-
-        .project-header {
-            height: 160px;
-            background-color: var(--surface-variant);
+        
+        .project-image {
+            height: 200px;
+            width: 100%;
+            background-color: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-        }
-
-        .firka-header {
-            background: linear-gradient(45deg, var(--primary), #8ab4f8);
-        }
-
-        .secret-header {
-            background: linear-gradient(45deg, #5f6368, #9aa0a6);
-        }
-
-        .weather-header {
-            background: linear-gradient(45deg, var(--tertiary), #34a853);
-        }
-
-        .music-header {
-            background: linear-gradient(45deg, var(--secondary), #fbbc04);
-        }
-
-        .project-header .material-symbols-outlined {
-            font-size: 80px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--light) 0%, var(--secondary) 100%);
             color: white;
+            font-size: 48px;
         }
-
-        .project-body {
-            padding: var(--spacing-lg);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        
+        .project-info {
+            padding: 25px;
         }
-
+        
         .project-title {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--spacing-sm);
-            color: var(--on-surface);
-            font-weight: 500;
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
         }
-
+        
+        .project-title i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
         .project-description {
-            color: var(--on-surface-variant);
-            margin-bottom: var(--spacing-md);
-            flex-grow: 1;
+            margin-bottom: 20px;
+            color: #555;
         }
-
+        
         .project-links {
             display: flex;
-            gap: var(--spacing-sm);
-            margin-top: auto;
+            gap: 10px;
         }
-
+        
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            padding: var(--spacing-sm) var(--spacing-md);
-            background-color: var(--surface-variant);
-            color: var(--on-surface);
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
             text-decoration: none;
-            border-radius: var(--border-radius-md);
-            font-weight: 500;
-            transition: all var(--transition-short);
-            border: 1px solid var(--outline);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
         }
-
+        
+        .project-link i {
+            margin-right: 6px;
+        }
+        
         .project-link:hover {
-            background-color: var(--primary);
-            color: var(--on-primary);
-            border-color: var(--primary);
+            background: #3367d6;
         }
-
+        
+        .project-link.secondary {
+            background: #f1f1f1;
+            color: var(--dark);
+        }
+        
+        .project-link.secondary:hover {
+            background: #e2e2e2;
+        }
+        
+        /* Kapcsolat section */
+        .contact {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .contact-icon div {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+        
+        .contact-icon:hover {
+            color: var(--primary);
+        }
+        
+        .contact-icon:hover div {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
         /* Footer */
         footer {
-            background-color: var(--surface);
-            color: var(--on-surface-variant);
-            padding: var(--spacing-xl) var(--spacing-md);
-            text-align: center;
-            box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
+            background: var(--dark);
+            color: white;
+            padding: 50px 5% 20px;
+            border-radius: 16px 16px 0 0;
+            margin-top: 60px;
         }
-
+        
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
-
+        
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-xl);
-            flex-wrap: wrap;
+            list-style: none;
         }
-
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
         .footer-links a {
-            color: var(--on-surface);
+            color: #ccc;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            transition: color var(--transition-short);
-            padding: var(--spacing-sm);
-            border-radius: var(--border-radius-md);
+            transition: var(--transition);
         }
-
+        
         .footer-links a:hover {
-            color: var(--primary);
-            background-color: var(--surface-variant);
+            color: white;
+            padding-left: 5px;
         }
-
-        .copyright {
-            font-size: var(--font-size-sm);
-            color: var(--on-surface-variant);
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
         }
-
-        /* Floating Action Button */
-        .fab {
-            position: fixed;
-            bottom: var(--spacing-xl);
-            right: var(--spacing-xl);
-            width: 56px;
-            height: 56px;
-            background-color: var(--primary);
-            color: var(--on-primary);
-            border-radius: var(--border-radius-full);
+        
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--elevation-3);
-            cursor: pointer;
-            transition: all var(--transition-short);
-            z-index: 99;
+            transition: var(--transition);
         }
-
-        .fab:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
         }
-
-        /* Responsive Design */
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Reszponzív stílusok */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: var(--surface);
+            .header-container {
                 flex-direction: column;
-                padding: var(--spacing-md);
-                box-shadow: var(--elevation-2);
+                text-align: center;
             }
             
-            .nav-links.active {
-                display: flex;
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
             }
             
-            .mobile-menu-btn {
-                display: block;
+            nav ul li {
+                margin: 5px 10px;
             }
             
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .about-image {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 480px) {
             .hero h1 {
-                font-size: var(--font-size-xl);
-            }
-            
-            .hero p {
-                font-size: var(--font-size-md);
+                font-size: 2.2rem;
             }
             
             .projects-grid {
                 grid-template-columns: 1fr;
             }
             
-            section {
-                padding: var(--spacing-lg);
+            .contact-icons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
             }
             
-            .fab {
-                bottom: var(--spacing-md);
-                right: var(--spacing-md);
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animációk */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Android Status Bar -->
-    <div class="android-status-bar">
-        <div class="status-left">
-            <span>9:41</span>
-        </div>
-        <div class="status-right">
-            <span class="material-symbols-outlined">signal_cellular_alt</span>
-            <span class="material-symbols-outlined">wifi</span>
-            <span class="material-symbols-outlined">battery_full</span>
-        </div>
-    </div>
-    
-    <!-- Doodle elements -->
-    <div class="doodle circle" style="width: 100px; height: 100px; top: 15%; left: 5%;"></div>
-    <div class="doodle squiggle" style="width: 150px; height: 20px; top: 40%; right: 8%;"></div>
-    <div class="doodle star" style="width: 60px; height: 60px; top: 70%; left: 10%;"></div>
-    <div class="doodle triangle" style="width: 40px; height: 40px; top: 85%; right: 15%;"></div>
-    <div class="doodle circle" style="width: 80px; height: 80px; top: 30%; right: 3%;"></div>
-    <div class="doodle squiggle" style="width: 120px; height: 20px; top: 60%; left: 8%;"></div>
-    <div class="doodle star" style="width: 40px; height: 40px; top: 20%; right: 20%;"></div>
-    
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <span class="material-symbols-outlined">code</span>
-                </div>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
                 <span>Pacuka</span>
-            </a>
+            </div>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-            
-            <nav class="nav-links" id="navLinks">
-                <a href="#" class="active">Kezdőlap</a>
-                <a href="#">Rólam</a>
-                <a href="#">Projektek</a>
-                <a href="#">Kapcsolat</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Kezdőlap</a></li>
+                    <li><a href="#about">Rólam</a></li>
+                    <li><a href="#projects">Projektek</a></li>
+                    <li><a href="#contact">Kapcsolat</a></li>
+                </ul>
             </nav>
         </div>
     </header>
     
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Üdvözöllek a webhelyemen!</h1>
-            <p>Pacuka vagyok, egy srác aki szeret az interneten lenni, fordítani és kódolni. Fedezd fel projektjeimet és kreatív munkáimat!</p>
-            <a href="#projects" class="cta-button">
-                <span class="material-symbols-outlined">rocket_launch</span>
-                Projektek megtekintése
-            </a>
+        <h1>Üdvözöllek a webhelyemen!</h1>
+        <p>Pacuka vagyok, egy srác aki szeret az interneten lenni, fordítani és kódolni. Fedezd fel projektjeimet és kreatív munkáimat!</p>
+        <div>
+            <a href="#projects" class="btn"><i class="fas fa-rocket"></i> Projektek megtekintése</a>
+            <a href="#about" class="btn"><i class="fas fa-user"></i> Rólam</a>
         </div>
     </section>
     
-    <!-- Main Content -->
-    <main>
-        <!-- About Section -->
-        <section id="about">
-            <h2>
-                <span class="material-symbols-outlined">person</span>
-                Rólam
-            </h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Üdv! Pacuka vagyok, egy srác aki szeret az interneten lenni. Fordítgatni viszonylag sok helyen :P</p>
-                    <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az online közösségek és a nyílt forráskódú szoftverek különleges helyet foglalnak el a szívemben.</p>
-                    <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg az alábbi elérhetőségeken!</p>
-                </div>
-                <div class="about-image">
-                    <span class="material-symbols-outlined">person</span>
-                </div>
-            </div>
-        </section>
+    <!-- Rólam Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">Rólam</h2>
         
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2>
-                <span class="material-symbols-outlined">folder</span>
-                Projektjeim
-            </h2>
-            <div class="projects-grid">
-                <!-- Firka Project -->
-                <div class="project-card">
-                    <div class="project-header firka-header">
-                        <span class="material-symbols-outlined">school</span>
-                    </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Firka</h3>
-                        <p class="project-description">A Firka egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/firka-app" class="project-link" target="_blank">
-                                <span class="material-symbols-outlined">code</span>
-                                GitHub
-                            </a>
-                            <a href="https://firka.app" class="project-link" target="_blank">
-                                <span class="material-symbols-outlined">public</span>
-                                Weboldal
-                            </a>
-                        </div>
-                    </div>
+        <div class="about">
+            <div class="about-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="about-content">
+                <p>Üdv! Pacuka vagyok, egy srác aki szeret az interneten lenni. Fordítgatni viszonylag sok helyen :P</p>
+                <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az online közösségek és a nyílt forráskódú szoftverek különleges helyet foglalnak el a szívemben.</p>
+                <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg az alábbi elérhetőségeken!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projektek Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title">Projektjeim</h2>
+        
+        <div class="projects-grid">
+            <!-- Firka projekt -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-school"></i>
                 </div>
-                
-                <!-- Secret Project -->
-                <div class="project-card">
-                    <div class="project-header secret-header">
-                        <span class="material-symbols-outlined">lock</span>
-                    </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Titok 👀</h3>
-                        <p class="project-description">Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad. Hamarosan további információkkal szolgálunk!</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <span class="material-symbols-outlined">visibility_off</span>
-                                Titkos
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Weather Project -->
-                <div class="project-card">
-                    <div class="project-header weather-header">
-                        <span class="material-symbols-outlined">acute</span>
-                    </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Idő Jós</h3>
-                        <p class="project-description">Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️. Gyors, pontos időjárás-előrejelzés a kedvenc helyeidre.</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <span class="material-symbols-outlined">psychology</span>
-                                Jósló
-                            </a>
-                            <a href="#" class="project-link">
-                                <span class="material-symbols-outlined">code</span>
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Music Player -->
-                <div class="project-card">
-                    <div class="project-header music-header">
-                        <span class="material-symbols-outlined">music_note</span>
-                    </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Pacuka's Web Music</h3>
-                        <p class="project-description">Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <span class="material-symbols-outlined">play_circle</span>
-                                Lejátszó
-                            </a>
-                            <a href="#" class="project-link">
-                                <span class="material-symbols-outlined">code</span>
-                                GitHub
-                            </a>
-                        </div>
+                <div class="project-info">
+                    <h3 class="project-title"><i class="fas fa-folder"></i> Firka</h3>
+                    <p class="project-description">A Firka egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="#" class="project-link secondary"><i class="fas fa-globe"></i> Weboldal</a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            
+            <!-- Titok projekt -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title"><i class="fas fa-folder"></i> Titok 👀</h3>
+                    <p class="project-description">Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad. Hamarosan további információkkal szolgálunk!</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-eye-slash"></i> Titkos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Idő Jós projekt -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title"><i class="fas fa-folder"></i> Idő Jós</h3>
+                    <p class="project-description">Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️. Gyors, pontos időjárás-előrejelzés a kedvenc helyeidre.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-brain"></i> Jósló</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Web Music projekt -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title"><i class="fas fa-folder"></i> Pacuka's Web Music</h3>
+                    <p class="project-description">Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-play-circle"></i> Lejátszó</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Kapcsolat Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Kapcsolat</h2>
+        
+        <div class="contact">
+            <p>Ha bármi kérdésed van, vagy szeretnél együttműködni, keress bátran!</p>
+            
+            <div class="contact-icons">
+                <a href="mailto:pacuka@example.com" class="contact-icon">
+                    <div><i class="fas fa-envelope"></i></div>
+                    <span>E-mail</span>
+                </a>
+                
+                <a href="#" class="contact-icon">
+                    <div><i class="fab fa-discord"></i></div>
+                    <span>Discord</span>
+                </a>
+                
+                <a href="#" class="contact-icon">
+                    <div><i class="fab fa-github"></i></div>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
     
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-links">
-                <a href="mailto:contact@pacuka.hu">
-                    <span class="material-symbols-outlined">mail</span>
-                    E-mail
-                </a>
-                <a href="#">
-                    <span class="material-symbols-outlined">forum</span>
-                    Discord
-                </a>
-                <a href="https://github.com/pacuka" target="_blank">
-                    <span class="material-symbols-outlined">code</span>
-                    GitHub
-                </a>
+            <div class="footer-section">
+                <h3>Pacuka</h3>
+                <p>Egy srác aki szeret az interneten lenni, fordítani és kódolni.</p>
             </div>
             
-            <div class="copyright">
-                © 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by Duxy.hu
+            <div class="footer-section">
+                <h3>Gyorslinkek</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Kezdőlap</a></li>
+                    <li><a href="#about">Rólam</a></li>
+                    <li><a href="#projects">Projektek</a></li>
+                    <li><a href="#contact">Kapcsolat</a></li>
+                </ul>
             </div>
             
-            <div class="copyright">
-                Készítette: Pacuka
+            <div class="footer-section">
+                <h3>Kapcsolat</h3>
+                <p><i class="fas fa-envelope"></i> pacuka@example.com</p>
+                
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
             </div>
         </div>
+        
+        <div class="copyright">
+            <p>© 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by Duxy.hu</p>
+            <p>Készítette: Pacuka</p>
+        </div>
     </footer>
-
-    <!-- Floating Action Button -->
-    <div class="fab" id="fab" title="Ugrás a lap tetejére">
-        <span class="material-symbols-outlined">arrow_upward</span>
-    </div>
-
+    
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navLinks = document.getElementById('navLinks');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            
-            if (navLinks.classList.contains('active') && 
-                !navLinks.contains(event.target) && 
-                !mobileMenuBtn.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
-        
-        // Create more doodle elements dynamically
-        function createDoodleElements() {
-            const body = document.body;
-            const doodleTypes = ['circle', 'squiggle', 'star', 'triangle'];
-            const colors = [getComputedStyle(document.documentElement).getPropertyValue('--primary'), 
-                            getComputedStyle(document.documentElement).getPropertyValue('--secondary'),
-                            getComputedStyle(document.documentElement).getPropertyValue('--tertiary')];
-            
-            for (let i = 0; i < 15; i++) {
-                const type = doodleTypes[Math.floor(Math.random() * doodleTypes.length)];
-                const doodle = document.createElement('div');
-                doodle.className = `doodle ${type}`;
+        // Sima görgetés a navigációs linkekre
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                const size = Math.random() * 80 + 20;
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                const rotation = Math.random() * 360;
-                const color = colors[Math.floor(Math.random() * colors.length)];
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
                 
-                if (type === 'circle') {
-                    doodle.style.width = `${size}px`;
-                    doodle.style.height = `${size}px`;
-                    doodle.style.borderColor = color;
-                } else if (type === 'squiggle') {
-                    doodle.style.width = `${size * 2}px`;
-                    doodle.style.height = '20px';
-                    doodle.style.borderTopColor = color;
-                } else if (type === 'star') {
-                    doodle.style.width = `${size}px`;
-                    doodle.style.height = `${size}px`;
-                    doodle.style.backgroundColor = color;
-                } else if (type === 'triangle') {
-                    doodle.style.width = '0';
-                    doodle.style.height = '0';
-                    doodle.style.borderLeft = `${size/2}px solid transparent`;
-                    doodle.style.borderRight = `${size/2}px solid transparent`;
-                    doodle.style.borderBottom = `${size}px solid ${color}`;
-                }
-                
-                doodle.style.top = `${top}%`;
-                doodle.style.left = `${left}%`;
-                
-                // Set random animation delay
-                doodle.style.animationDelay = `${Math.random() * 5}s`;
-                
-                body.appendChild(doodle);
-            }
-        }
-        
-        // Create doodle elements on page load
-        window.addEventListener('DOMContentLoaded', createDoodleElements);
-        
-        // Scroll to top functionality
-        document.getElementById('fab').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             });
         });
-        
-        // Show/hide FAB based on scroll position
-        window.addEventListener('scroll', function() {
-            const fab = document.getElementById('fab');
-            if (window.scrollY > 300) {
-                fab.style.display = 'flex';
-            } else {
-                fab.style.display = 'none';
-            }
-        });
     </script>
-
+</body>
+</html>
