@@ -1,666 +1,764 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacuka - Portfólió</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #EA4335;
-            --light: #FBBC05;
-            --dark: #1a1a1a;
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        /* Header stílusok */
-        header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 15px 5%;
-            border-radius: 0 0 16px 16px;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 8px;
-            color: var(--accent);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 8px 12px;
-            border-radius: 20px;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary);
-            background: rgba(66, 133, 244, 0.1);
-        }
-        
-        /* Hero section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #6f42c1 100%);
-            color: white;
-            padding: 80px 5%;
-            border-radius: 16px;
-            margin: 30px 5%;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            animation: fadeInUp 1.2s ease;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 12px 28px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            animation: fadeInUp 1.4s ease;
-            margin: 5px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn i {
-            margin-right: 8px;
-        }
-        
-        /* Section stílusok */
-        .section {
-            padding: 60px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            color: var(--dark);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-        
-        /* Rólam section */
-        .about {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .about-icon {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .about-content {
-            max-width: 800px;
-        }
-        
-        .about-content p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-        
-        /* Projektek section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .project-image {
-            height: 200px;
-            width: 100%;
-            background-color: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--light) 0%, var(--secondary) 100%);
-            color: white;
-            font-size: 48px;
-        }
-        
-        .project-info {
-            padding: 25px;
-        }
-        
-        .project-title {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-        }
-        
-        .project-title i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        .project-description {
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .project-link {
-            padding: 8px 16px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-        }
-        
-        .project-link i {
-            margin-right: 6px;
-        }
-        
-        .project-link:hover {
-            background: #3367d6;
-        }
-        
-        .project-link.secondary {
-            background: #f1f1f1;
-            color: var(--dark);
-        }
-        
-        .project-link.secondary:hover {
-            background: #e2e2e2;
-        }
-        
-        /* Kapcsolat section */
-        .contact {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: var(--card-shadow);
-            text-align: center;
-        }
-        
-        .contact-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-        }
-        
-        .contact-icon div {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: var(--light-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            font-size: 24px;
-            transition: var(--transition);
-        }
-        
-        .contact-icon:hover {
-            color: var(--primary);
-        }
-        
-        .contact-icon:hover div {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-5px);
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 50px 5% 20px;
-            border-radius: 16px 16px 0 0;
-            margin-top: 60px;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-section h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icons a {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .social-icons a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-        }
-        
-        /* Reszponzív stílusok */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-icons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .project-links {
-                flex-direction: column;
-            }
-        }
-        
-        /* Animációk */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+<script>
+  (function(){
+    try{
+      var saved = localStorage.getItem('pacuka-theme');
+      if(saved === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+    }catch(e){}
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacuka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/x-icon" href="https://github.com/Pacuka/Website/raw/refs/heads/main/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#B4C0FF;
+    --on-primary:#1B2261;
+    --primary-container:#30366F;
+    --on-primary-container:#DEE1FF;
+
+    --secondary:#C7C5D6;
+    --on-secondary:#2E2F3B;
+    --secondary-container:#3C3D4B;
+    --on-secondary-container:#E3E1F0;
+
+    --tertiary:#9FE0D3;
+    --on-tertiary:#0A362F;
+    --tertiary-container:#1F4B44;
+    --on-tertiary-container:#BEF0E4;
+
+    --bg:#121218;
+    --surface:#1B1B23;
+    --surface-variant:#26262F;
+    --outline:#3A3A45;
+    --ink:#EDEDF2;
+    --ink-2:#C7C6CF;
+    --ink-3:#918F99;
+
+    --header-bg:rgba(18,18,24,0.82);
+    --blob-opacity:0.28;
+
+    --sp-1:10px; --sp-2:20px; --sp-3:32px; --sp-4:44px; --sp-5:64px; --sp-6:96px; --sp-7:128px;
+    --r-lg:28px; --r-md:20px; --r-sm:12px;
+  }
+
+  [data-theme="light"]{
+    --primary:#4C5FD1;
+    --on-primary:#FFFFFF;
+    --primary-container:#E2E4FF;
+    --on-primary-container:#1C2265;
+
+    --secondary:#5D6270;
+    --on-secondary:#FFFFFF;
+    --secondary-container:#E4E2EF;
+    --on-secondary-container:#2C2F3D;
+
+    --tertiary:#3E6B67;
+    --on-tertiary:#FFFFFF;
+    --tertiary-container:#C9EDE7;
+    --on-tertiary-container:#0D2E2A;
+
+    --bg:#FBFAFC;
+    --surface:#FFFFFF;
+    --surface-variant:#F1EFF6;
+    --outline:#E2E0E8;
+    --ink:#1C1B1F;
+    --ink-2:#48454E;
+    --ink-3:#79767F;
+
+    --header-bg:rgba(251,250,252,0.86);
+    --blob-opacity:0.5;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Montserrat', sans-serif;
+    line-height:1.65;
+    position:relative;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 var(--sp-4);}
+  a{color:inherit; text-decoration:none;}
+
+  .bg-layer{
+    position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none;
+  }
+  .bg-blob{position:absolute; filter:blur(2px); opacity:var(--blob-opacity); transition:opacity .3s ease;}
+  .bg-blob svg{width:100%; height:100%;}
+  .bg-blob.b1{ width:620px; top:-160px; left:-180px; animation:drift1 26s ease-in-out infinite; }
+  .bg-blob.b2{ width:460px; top:520px; right:-160px; animation:drift2 32s ease-in-out infinite; }
+  .bg-blob.b3{ width:380px; top:1180px; left:-120px; animation:drift1 22s ease-in-out infinite reverse; }
+  @keyframes drift1{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    50%{ transform:translate(30px,40px) rotate(8deg); }
+  }
+  @keyframes drift2{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    50%{ transform:translate(-25px,-35px) rotate(-6deg); }
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  @media(prefers-reduced-motion:reduce){
+    .bg-blob, .hero-shape svg{ animation:none !important; }
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  }
+
+  header{
+    position:sticky; top:0; z-index:100;
+    background:var(--header-bg);
+    backdrop-filter:blur(10px);
+    transition:box-shadow .25s ease, background .25s ease;
+  }
+  header.raised{box-shadow:0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);}
+  .barinner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:19px;}
+  .brand h3{font:inherit; margin:0;}
+  .brand .mark{width:12px; height:12px; border-radius:4px; background:var(--primary);}
+  nav{display:flex; gap:4px;}
+  nav a{
+    font-size:14.5px; font-weight:500; color:var(--ink-2);
+    padding:10px 18px; border-radius:100px;
+  }
+  nav a:hover{background:var(--surface-variant); color:var(--ink);}
+
+  .bar-actions{display:flex; align-items:center; gap:4px;}
+
+  .theme-toggle{
+    display:flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:10px; border:none; background:transparent;
+    color:var(--ink-2); cursor:pointer; position:relative;
+  }
+  .theme-toggle:hover{background:var(--surface-variant); color:var(--ink);}
+  .theme-toggle svg{width:19px; height:19px; position:absolute; transition:opacity .2s ease, transform .3s ease;}
+  .theme-toggle .icon-sun{opacity:0; transform:rotate(-40deg) scale(0.6);}
+  .theme-toggle .icon-moon{opacity:1; transform:rotate(0) scale(1);}
+  [data-theme="light"] .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
+  [data-theme="light"] .theme-toggle .icon-moon{opacity:0; transform:rotate(40deg) scale(0.6);}
+
+  .menu-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:40px; height:40px; border-radius:10px; border:none; background:transparent;
+    cursor:pointer; align-items:center;
+  }
+  .menu-toggle:hover{background:var(--surface-variant);}
+  .menu-toggle span{
+    width:20px; height:2px; background:var(--ink); border-radius:2px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-nav{
+    display:none; flex-direction:column;
+    border-top:1px solid var(--outline);
+    background:var(--surface);
+    padding:var(--sp-1) var(--sp-3) var(--sp-2);
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{
+    padding:14px 10px; font-size:15px; font-weight:500; color:var(--ink-2);
+    border-radius:10px;
+  }
+  .mobile-nav a:hover{background:var(--surface-variant); color:var(--ink);}
+
+  main{position:relative;}
+
+  section{padding:var(--sp-6) 0;}
+
+  .hero{
+    padding:var(--sp-7) 0 var(--sp-6);
+    display:grid; grid-template-columns:1.4fr 0.6fr; gap:var(--sp-5); align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13.5px; font-weight:500; color:var(--on-primary-container);
+    background:var(--primary-container); padding:8px 16px; border-radius:100px; margin-bottom:var(--sp-3);
+  }
+  h1{
+    font-size:52px; font-weight:900; letter-spacing:-0.02em; line-height:1.08;
+    margin-bottom:var(--sp-3);
+  }
+  h1 .accent{ color:var(--primary); }
+  #greet{ white-space:nowrap; }
+  .caret{
+    display:inline-block; width:3px; height:0.85em; margin-left:2px;
+    background:currentColor; vertical-align:-0.08em;
+    animation:caretBlink 1s steps(1) infinite;
+  }
+  @keyframes caretBlink{ 50%{ opacity:0; } }
+  @media(prefers-reduced-motion:reduce){
+    .caret{ animation:none; }
+  }
+  .hero p.lede{
+    font-size:17.5px; color:var(--ink-2); max-width:44ch; margin-bottom:var(--sp-4);
+  }
+  .hero-cta{display:flex; gap:var(--sp-2); flex-wrap:wrap;}
+  .btn{
+    position:relative; overflow:hidden;
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:500; font-size:14.5px;
+    padding:14px 26px; border-radius:100px;
+    border:1px solid var(--outline);
+    background:var(--surface);
+    box-shadow:0 1px 2px rgba(0,0,0,0.05);
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .btn:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1); transform:translateY(-1px);}
+  .btn.filled{background:var(--primary); color:#fff; border-color:var(--primary);}
+
+  .hero-shape{position:relative; aspect-ratio:1/1; max-width:340px; margin-left:auto;}
+  .hero-shape svg{width:100%; height:100%; animation:morph 10s ease-in-out infinite;}
+  @keyframes morph{
+    0%,100%{ d: path("M300,60 C400,60 460,150 460,250 C460,360 380,460 270,460 C160,460 70,380 60,270 C50,160 130,60 240,60 Z"); }
+    50%{ d: path("M310,50 C420,70 470,170 450,270 C430,370 340,450 240,450 C140,450 60,370 60,260 C60,150 150,40 260,50 Z"); }
+  }
+
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:var(--sp-4); gap:var(--sp-2); flex-wrap:wrap;}
+  h2{font-size:28px; font-weight:700; letter-spacing:-0.01em;}
+  .sec-sub{color:var(--ink-3); font-size:14.5px;}
+
+  .about-card{
+    background:var(--surface); border-radius:var(--r-lg);
+    padding:var(--sp-5); box-shadow:0 1px 3px rgba(0,0,0,0.05);
+    display:grid; grid-template-columns:auto 1fr; gap:var(--sp-4); align-items:start;
+  }
+  .about-mark{
+    width:56px; height:56px; border-radius:var(--r-sm); flex-shrink:0;
+    background:var(--tertiary-container);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:700; color:var(--on-tertiary-container);
+  }
+  .about-card p{color:var(--ink-2); font-size:15.5px; margin-bottom:var(--sp-2);}
+  .about-card p:last-child{margin-bottom:0;}
+  .about-card strong{color:var(--ink); font-weight:700;}
+
+  .featured-mark img,
+  .prow .mark img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  .featured{
+    background:var(--primary-container);
+    border-radius:var(--r-lg);
+    padding:var(--sp-5);
+    display:grid; grid-template-columns:1fr auto; gap:var(--sp-3); align-items:center;
+    margin-bottom:var(--sp-2);
+    transition:box-shadow .2s ease;
+  }
+  .featured:hover{box-shadow:0 6px 20px rgba(76,95,209,0.15);}
+  .ftag{
+    font-size:12.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--on-primary-container); margin-bottom:var(--sp-1);
+  }
+  .featured h3{font-size:26px; font-weight:700; margin-bottom:var(--sp-1); color:var(--on-primary-container);}
+  .featured p{color:var(--on-primary-container); opacity:0.85; font-size:15px; max-width:56ch; margin-bottom:var(--sp-3);}
+  .flinks{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13.5px; font-weight:500;
+    padding:9px 16px; border-radius:100px;
+    background:var(--surface); border:1px solid rgba(0,0,0,0.06); color:var(--ink);
+  }
+  .chip:hover{box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+  .featured-mark{
+    width:112px; height:112px; border-radius:32px;
+    background:var(--primary); display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:42px; font-weight:900;
+    flex-shrink:0;
+  }
+
+  .plist{display:flex; flex-direction:column; gap:var(--sp-1);}
+  .prow{
+    display:grid; grid-template-columns:56px 1fr auto; gap:var(--sp-3); align-items:center;
+    background:var(--surface); padding:var(--sp-3); border-radius:var(--r-md);
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .prow:hover{box-shadow:0 3px 12px rgba(0,0,0,0.06); transform:translateX(2px);}
+  .prow .mark{
+    width:56px; height:56px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; font-weight:700;
+    background:var(--secondary-container); color:var(--on-secondary-container);
+  }
+  .prow h4{font-size:17px; font-weight:700; margin-bottom:4px;}
+  .prow p{font-size:14px; color:var(--ink-3);}
+  .prow .rlinks{display:flex; gap:8px;}
+  .rlinks a{
+    font-size:13px; font-weight:500; padding:9px 15px; border-radius:100px;
+    border:1px solid var(--outline);
+  }
+  .rlinks a:hover{background:var(--surface-variant);}
+
+  .contact-card{
+    background:var(--tertiary-container);
+    border-radius:var(--r-lg); padding:var(--sp-5); text-align:left;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:var(--sp-3); align-items:center;
+  }
+  .contact-card h2{margin-bottom:var(--sp-1); color:var(--on-tertiary-container);}
+  .contact-card p{color:var(--on-tertiary-container); opacity:0.85; font-size:15px;}
+  .contact-actions{display:flex; flex-direction:column; gap:var(--sp-1);}
+  .caction{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    background:var(--surface); padding:15px 20px; border-radius:14px;
+    font-weight:500; font-size:14.5px;
+    box-shadow:0 1px 2px rgba(0,0,0,0.04);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .caction .clabel{display:flex; align-items:center; gap:12px;}
+  .caction .icon-badge{
+    width:36px; height:36px; border-radius:10px; flex-shrink:0;
+    background:var(--tertiary-container); color:var(--on-tertiary-container);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .caction .icon-badge svg{width:18px; height:18px;}
+  .caction:hover{transform:translateX(3px); box-shadow:0 3px 10px rgba(0,0,0,0.08);}
+  .caction .arr{color:var(--ink-3);}
+
+  .footer-links a{display:flex; align-items:center; gap:10px; font-size:14px; color:var(--ink-3);}
+  .footer-links a svg{width:15px; height:15px; flex-shrink:0; opacity:0.7;}
+  .footer-links a:hover{color:var(--ink);}
+  .footer-links a:hover svg{opacity:1;}
+
+  .stack-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-2);
+  }
+  .stack-chip{
+    background:var(--surface); border:1px solid var(--outline); border-radius:var(--r-sm);
+    padding:var(--sp-2); text-align:center;
+    font-family:'Roboto Mono', monospace; font-size:13.5px; color:var(--ink-2);
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .stack-chip:hover{box-shadow:0 3px 10px rgba(0,0,0,0.06); transform:translateY(-2px);}
+
+  footer{padding:var(--sp-6) 0 var(--sp-5); margin-top:var(--sp-7);}
+  .footer-grid{
+    display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:var(--sp-4);
+    margin-bottom:var(--sp-4);
+  }
+  .footer-grid h3{font-size:15px; font-weight:700; margin-bottom:var(--sp-2); color:var(--ink);}
+  .footer-grid p{font-size:14px; color:var(--ink-3); max-width:32ch;}
+  .footer-links{display:flex; flex-direction:column; gap:10px;}
+  .footer-divider{height:1px; background:var(--outline); margin-bottom:var(--sp-3);}
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--sp-1);
+    color:var(--ink-3); font-size:13px;
+  }
+
+  .ripple{position:absolute; border-radius:50%; background:rgba(0,0,0,0.12); transform:scale(0); animation:rip .6s ease-out;}
+  .btn.filled .ripple{background:rgba(255,255,255,0.3);}
+  @keyframes rip{ to{ transform:scale(3); opacity:0; } }
+
+  @media(min-width:1400px){
+    .wrap{max-width:1180px;}
+    h1{font-size:60px;}
+    .hero p.lede{font-size:19px;}
+  }
+
+  @media(max-width:1024px){
+    .wrap{padding:0 var(--sp-3);}
+    h1{font-size:46px;}
+    .hero{gap:var(--sp-4);}
+  }
+
+  @media(max-width:800px){
+    .hero{grid-template-columns:1fr; padding:var(--sp-5) 0 var(--sp-4);}
+    .hero-shape{max-width:280px; margin:0 auto;}
+    h1{font-size:38px;}
+    .about-card{grid-template-columns:1fr;}
+    .featured{grid-template-columns:1fr;}
+    .featured-mark{width:80px; height:80px; font-size:30px;}
+    .prow{grid-template-columns:44px 1fr; grid-template-areas:"mark title" "links links";}
+    .prow .mark{grid-area:mark; width:44px; height:44px;}
+    .prow h4, .prow p{grid-area:title;}
+    .prow .rlinks{grid-area:links; margin-top:var(--sp-2);}
+    .contact-card{grid-template-columns:1fr;}
+    .stack-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    nav{display:none;}
+    .menu-toggle{display:flex;}
+    .bg-blob{opacity:0.35;}
+  }
+
+  @media(max-width:600px){
+    :root{ --sp-5:44px; --sp-6:64px; --sp-7:80px; }
+    .wrap{padding:0 var(--sp-2);}
+    section{padding:var(--sp-4) 0;}
+    h1{font-size:32px;}
+    .eyebrow{font-size:12.5px; padding:7px 14px;}
+    .hero p.lede{font-size:16px;}
+    .btn{padding:12px 20px; font-size:14px;}
+    .about-card, .featured, .contact-card{padding:var(--sp-3);}
+    .prow{padding:var(--sp-2);}
+    h2{font-size:24px;}
+    .stack-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .footer-row{flex-direction:column; align-items:flex-start; gap:6px;}
+  }
+
+  @media(max-width:400px){
+    h1{font-size:27px;}
+    .hero-cta{flex-direction:column; align-items:stretch;}
+    .hero-cta .btn{justify-content:center;}
+    .rlinks{flex-direction:column; align-items:stretch;}
+    .rlinks a{text-align:center;}
+    .stack-grid{grid-template-columns:1fr;}
+  }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <i class="fas fa-code"></i>
-                <span>Pacuka</span>
-            </div>
-            
-            <nav>
-                <ul>
-                    <li><a href="#">Kezdőlap</a></li>
-                    <li><a href="#about">Rólam</a></li>
-                    <li><a href="#projects">Projektek</a></li>
-                    <li><a href="#contact">Kapcsolat</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Üdvözöllek a webhelyemen!</h1>
-        <p>Pacuka vagyok, egy srác aki szeret az interneten lenni, fordítani és kódolni. Fedezd fel projektjeimet és kreatív munkáimat!</p>
+
+<div class="bg-layer">
+  <div class="bg-blob b1"><svg viewBox="0 0 520 520"><path fill="var(--primary-container)" d="M300,80 C390,80 450,160 450,250 C450,350 380,440 280,440 C180,440 90,370 80,270 C70,170 210,80 300,80 Z"/></svg></div>
+  <div class="bg-blob b2"><svg viewBox="0 0 520 520"><path fill="var(--tertiary-container)" d="M280,60 C380,70 440,160 430,260 C420,360 330,450 230,440 C130,430 60,340 70,240 C80,140 180,50 280,60 Z"/></svg></div>
+  <div class="bg-blob b3"><svg viewBox="0 0 520 520"><path fill="var(--secondary-container)" d="M290,70 C380,90 440,170 430,270 C420,370 330,450 230,430 C130,410 70,320 80,220 C90,120 200,50 290,70 Z"/></svg></div>
+</div>
+
+<header id="topbar">
+  <div class="wrap barinner">
+    <a href="https://pacuka.hu"><div class="brand"><span class="mark"></span><h3>Pacuka</h3></div></a>
+    <nav>
+      <a href="#about">Rólam</a>
+      <a href="#stack">Amit használok</a>
+      <a href="#projects">Projektek</a>
+      <a href="#contact">Kapcsolat</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Sötét/világos téma váltása">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5a8.5 8.5 0 1 1-8.9-9.9 7 7 0 0 0 8.9 9.9Z"/></svg>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#about">Rólam</a>
+    <a href="#stack">Amit használok</a>
+    <a href="#projects">Projektek</a>
+    <a href="#contact">Kapcsolat</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <h1><span id="greet"></span><span class="caret"></span>, <span class="accent">Pacuka</span> vagyok.</h1>
+      <p class="lede">Egy srác, aki szeret az interneten lenni, fordítani és kódolni. Ezen az oldalon a projektjeim és a kreatív munkáim élnek - nézz körbe nyugodtan.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn filled" onclick="ripple(event)">Projektek megtekintése</a>
+        <a href="#about" class="btn" onclick="ripple(event)">Rólam</a>
+      </div>
+    </div>
+    <div class="hero-shape">
+      <svg viewBox="0 0 520 520">
+        <path fill="var(--primary-container)" d="M300,60 C400,60 460,150 460,250 C460,360 380,460 270,460 C160,460 70,380 60,270 C50,160 130,60 240,60 Z"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="sec-head"><h2>Rólam</h2></div>
+    <div class="about-card reveal">
+      <div class="about-mark">P</div>
+      <div>
+        <p>Üdv! Pacuka vagyok, egy srác, aki szeret az interneten lenni. Fordítgatok viszonylag sok helyen :P</p>
+        <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az <strong>online közösségek</strong> és a <strong>nyílt forráskódú szoftverek</strong> különleges helyet foglalnak el a szívemben.</p>
+        <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg lent az elérhetőségeimen!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" class="wrap">
+    <div class="sec-head">
+      <h2>Amit használok</h2>
+      <div class="sec-sub">a napi eszköztáram</div>
+    </div>
+    <div class="stack-grid reveal" id="stack-grid"></div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="sec-head">
+      <h2>Projektjeim</h2>
+      <div class="sec-sub">4 projekt, 1 titok</div>
+    </div>
+
+    <div id="project-featured" class="reveal"></div>
+    <div class="plist reveal" id="project-list"></div>
+  </section>
+
+  <section id="contact" class="wrap" style="margin-top:var(--sp-4); margin-bottom:var(--sp-4);">
+    <div class="contact-card reveal">
+      <div>
+        <h2>Beszéljünk!</h2>
+        <p>Ha bármi kérdésed van, vagy szeretnél együttműködni, keress bátran valamelyik felületen.</p>
+      </div>
+      <div class="contact-actions" id="contact-actions"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="footer-grid">
+    <div>
+      <h3>Pacuka</h3>
+      <p>Egy srác, aki szeret az interneten lenni, fordítani és kódolni.</p>
+    </div>
+    <div>
+      <h3>Gyorslinkek</h3>
+      <div class="footer-links" id="footer-quicklinks"></div>
+    </div>
+    <div>
+      <h3>Kapcsolat</h3>
+      <div class="footer-links" id="footer-contact"></div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-row">
+    <div>© 2026 Pacuka.hu - minden jog fenntartva.</div>
+    <div>Not associated or approved by Duxy.hu</div>
+  </div>
+</footer>
+
+<script>
+  const ICONS = {
+    mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>`,
+    discord: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="6"/><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"/><path d="M8 6.5 9 4h6l1 2.5"/></svg>`,
+    github: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18 7 20"/><path d="M15 18l2 2"/><path d="M6 15c-2-.5-3-2-3-4"/><path d="M9 6 7 8"/><path d="M15 6l2 2"/><rect x="7" y="8" width="10" height="10" rx="4"/></svg>`,
+    link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 15 9"/><path d="M10 6.5 11.2 5.3a3.5 3.5 0 0 1 5 5L15 11.5"/><path d="M14 17.5 12.8 18.7a3.5 3.5 0 0 1-5-5L9 12.5"/></svg>`
+  };
+  function iconHTML(name){ return ICONS[name] ? `<span class="icon-badge">${ICONS[name]}</span>` : ""; }
+  function rawIcon(name){ return ICONS[name] || ""; }
+
+  const SITE_DATA = {
+    stack: ["Python","JavaScript","TypeScript","Dart / Flutter","HTML / CSS","Bash","Docker","Git"],
+
+    projects: [
+      {id:"firka", title:"Firka", tag:"kiemelt projekt", mark:`<img src="https://camo.githubusercontent.com/9325691412ea0d5efba03e9507e8b61d2551372b6f69540bb2f1594e002c60d8/68747470733a2f2f6769742e6669726b612e6170702f6669726b612f726561646d652d66696c65732f7261772f6272616e63682f6d61696e2f646176652e706e67">`, featured:true,
+desc:"Nyílt forráskódú, alternatív kliens az E-Kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók - mert a hivatalos appnak nem kellett volna ilyen lassúnak lennie.",
+links:[{label:"Firka", url:"https://firka.app"},{label:"GitHub", url:"https://github.com/QwIT-Development/firka"}]
+      },
+      {
+        id:"idojos", title:"Idő Jós", mark:"🧙‍♂️",
+        desc:"Egyszerű idő jóslás - gyors, pontos, a kedvenc oldalad lesz...",
+        links:[{label:"Jósló", url:"https://pacuka.github.io/IdoJos/"},{label:"GitHub", url:"https://github.com/Pacuka/IdoJos"}]
+      },
+      {
+        id:"webmusic", title:"Pacuka's Web Music", mark:"♪",
+        desc:"Sajátfejlesztésű zenelejátszó, elsősorban mellék projekt - de nyugodtan belehallgathatsz.",
+        links:[{label:"Lejátszó", url:"https://pacuka.github.io/Music/"},{label:"GitHub", url:"https://github.com/Pacuka/Music"}]
+      },
+      {
+        id:"titok", title:"Titok 👀", mark:"?",
+        desc:"Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.",
+        links:[{label:"Hamarosan", url:"#"}]
+      }
+    ],
+
+    contact: [
+      {label:"E-mail - pacuka@etik.com", short:"E-mail", url:"mailto:pacuka@etik.com", icon:"mail"},
+      {label:"Discord", url:"https://discord.com/user/711460576236404738", icon:"discord"},
+      {label:"GitHub", url:"https://github.com/Pacuka", icon:"github"},
+      {label:"YourSitee", url:"https://yoursit.ee/pacuka", icon:"link"}
+    ],
+
+    quicklinks: [
+      {label:"Rólam", url:"#about"},
+      {label:"Amit használok", url:"#stack"},
+      {label:"Projektek", url:"#projects"},
+      {label:"Kapcsolat", url:"#contact"}
+    ]
+  };
+
+  function linksHTML(links){
+    return links.map(l => `<a href="${l.url}" onclick="ripple(event)">${l.label}</a>`).join("");
+  }
+
+  function renderStack(){
+    const el = document.getElementById("stack-grid");
+    el.innerHTML = SITE_DATA.stack.map(s => `<div class="stack-chip">${s}</div>`).join("");
+  }
+
+  function renderProjects(){
+    const featured = SITE_DATA.projects.find(p => p.featured);
+    const rest = SITE_DATA.projects.filter(p => !p.featured);
+
+    const featuredEl = document.getElementById("project-featured");
+    if(featured){
+      featuredEl.innerHTML = `
+        <div class="featured">
+          <div>
+            <div class="ftag">${featured.tag || "kiemelt projekt"}</div>
+            <h3>${featured.title}</h3>
+            <p>${featured.desc}</p>
+            <div class="flinks">${featured.links.map(l => `<a class="chip" href="${l.url}" onclick="ripple(event)">${l.label}</a>`).join("")}</div>
+          </div>
+          <div class="featured-mark">${featured.mark}</div>
+        </div>`;
+    }
+
+    const listEl = document.getElementById("project-list");
+    listEl.innerHTML = rest.map(p => `
+      <div class="prow">
+        <div class="mark">${p.mark}</div>
         <div>
-            <a href="#projects" class="btn"><i class="fas fa-rocket"></i> Projektek megtekintése</a>
-            <a href="#about" class="btn"><i class="fas fa-user"></i> Rólam</a>
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
         </div>
-    </section>
-    
-    <!-- Rólam Section -->
-    <section id="about" class="section">
-        <h2 class="section-title">Rólam</h2>
-        
-        <div class="about">
-            <div class="about-icon">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="about-content">
-                <p>Üdv! Pacuka vagyok, egy srác aki szeret az interneten lenni. Fordítgatni viszonylag sok helyen :P</p>
-                <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az online közösségek és a nyílt forráskódú szoftverek különleges helyet foglalnak el a szívemben.</p>
-                <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg az alábbi elérhetőségeken!</p>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Projektek Section -->
-    <section id="projects" class="section">
-        <h2 class="section-title">Projektjeim</h2>
-        
-        <div class="projects-grid">
-            <!-- Firka projekt -->
-            <div class="project-card">
-                <div class="project-image">
-                    <i class="fas fa-school"></i>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title"><i class="fas fa-folder"></i> Firka</h3>
-                    <p class="project-description">A Firka egy nyílt forráskódú, alternatív kliens az E-kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók.</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                        <a href="https://firka.app" class="project-link secondary"><i class="fas fa-globe"></i> Weboldal</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Titok projekt -->
-            <div class="project-card">
-                <div class="project-image">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title"><i class="fas fa-folder"></i> Titok 👀</h3>
-                    <p class="project-description">Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad. Hamarosan további információkkal szolgálunk!</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fas fa-eye-slash"></i> Titkos</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Idő Jós projekt -->
-            <div class="project-card">
-                <div class="project-image">
-                    <i class="fas fa-cloud-sun"></i>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title"><i class="fas fa-folder"></i> Idő Jós</h3>
-                    <p class="project-description">Az Idő Jós egy egyszerű jóslást hajt végre, hogy megjósolja az időt 🧙🏻‍♂️. Gyors, pontos időjárás-előrejelzés a kedvenc helyeidre.</p>
-                    <div class="project-links">
-                        <a href="https://pacuka.github.io/IdoJos/" class="project-link"><i class="fas fa-brain"></i> Jósló</a>
-                        <a href="https://github.com/Pacuka/IdoJos" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Web Music projekt -->
-            <div class="project-card">
-                <div class="project-image">
-                    <i class="fas fa-music"></i>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title"><i class="fas fa-folder"></i> Pacuka's Web Music</h3>
-                    <p class="project-description">Ez a lejátszó egy sajátfejlesztésű zenelejátszó oldal elsősorban magamnak, de nyugodtan belehalgathatsz. :P</p>
-                    <div class="project-links">
-                        <a href="https://pacuka.github.io/Music/" class="project-link"><i class="fas fa-play-circle"></i> Lejátszó</a>
-                        <a href="https://github.com/Pacuka/Music" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Kapcsolat Section -->
-    <section id="contact" class="section">
-        <h2 class="section-title">Kapcsolat</h2>
-        
-        <div class="contact">
-            <p>Ha bármi kérdésed van, vagy szeretnél együttműködni, keress bátran!</p>
-            
-            <div class="contact-icons">
-                <a href="mailto:pacuka@etik.com" class="contact-icon">
-                    <div><i class="fas fa-envelope"></i></div>
-                    <span>E-mail</span>
-                </a>
-                
-                <a href="https://discord.com/user/711460576236404738" class="contact-icon">
-                    <div><i class="fab fa-discord"></i></div>
-                    <span>Discord</span>
-                </a>
-                
-                <a href="https://github.com/Pacuka" class="contact-icon">
-                    <div><i class="fab fa-github"></i></div>
-                    <span>GitHub</span>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Pacuka</h3>
-                <p>Egy srác aki szeret az interneten lenni, fordítani és kódolni.</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Gyorslinkek</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Kezdőlap</a></li>
-                    <li><a href="#about">Rólam</a></li>
-                    <li><a href="#projects">Projektek</a></li>
-                    <li><a href="#contact">Kapcsolat</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Kapcsolat</h3>
-                <p><i class="fas fa-envelope"></i> pacuka@etik.com</p>
-                
-                <div class="social-icons">
-                    <a href="https://github.com/Pacuka"><i class="fab fa-github"></i></a>
-                    <a href="https://discord.com/user/711460576236404738"><i class="fab fa-discord"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>© 2024 Pacuka.hu. Minden jog fenntartva. Not associated or approved by Duxy.hu</p>
-            <p>Készítette: Pacuka</p>
-        </div>
-    </footer>
-    
-    <script>
-        // Sima görgetés a navigációs linkekre
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+        <div class="rlinks">${linksHTML(p.links)}</div>
+      </div>`).join("");
+  }
+
+  function renderContact(){
+    const el = document.getElementById("contact-actions");
+    el.innerHTML = SITE_DATA.contact.map(c => `
+      <a class="caction" href="${c.url}">
+        <span class="clabel">${iconHTML(c.icon)}<span>${c.label}</span></span>
+        <span class="arr">→</span>
+      </a>`).join("");
+  }
+
+  function renderFooter(){
+    document.getElementById("footer-quicklinks").innerHTML =
+      SITE_DATA.quicklinks.map(l => `<a href="${l.url}">${l.label}</a>`).join("");
+    document.getElementById("footer-contact").innerHTML =
+      SITE_DATA.contact.map(c => `<a href="${c.url}">${rawIcon(c.icon)}<span>${c.short || c.label}</span></a>`).join("");
+  }
+
+  const GREETINGS = ["Szia", "Hali", "Üdv", "Szeva"];
+
+  function startGreetingTypewriter(){
+    const el = document.getElementById('greet');
+    if(!el) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduceMotion){
+      el.textContent = GREETINGS[0];
+      return;
+    }
+
+    let lastWord = null;
+    let charIndex = 0;
+    let deleting = false;
+    let current = pickWord();
+
+    function pickWord(){
+      let w;
+      do { w = GREETINGS[Math.floor(Math.random() * GREETINGS.length)]; }
+      while(w === lastWord && GREETINGS.length > 1);
+      lastWord = w;
+      return w;
+    }
+
+    function tick(){
+      if(!deleting){
+        charIndex++;
+        el.textContent = current.slice(0, charIndex);
+        if(charIndex === current.length){
+          deleting = true;
+          setTimeout(tick, 1500);
+          return;
+        }
+        setTimeout(tick, 95);
+      } else {
+        charIndex--;
+        el.textContent = current.slice(0, charIndex);
+        if(charIndex === 0){
+          deleting = false;
+          current = pickWord();
+          setTimeout(tick, 350);
+          return;
+        }
+        setTimeout(tick, 45);
+      }
+    }
+    tick();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderStack();
+    renderProjects();
+    renderContact();
+    renderFooter();
+    startGreetingTypewriter();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("in-view");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  });
+
+  const header = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('raised', window.scrollY > 8);
+  }, { passive:true });
+
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight){
+      document.documentElement.removeAttribute('data-theme');
+      try{ localStorage.setItem('pacuka-theme', 'dark'); }catch(e){}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      try{ localStorage.setItem('pacuka-theme', 'light'); }catch(e){}
+    }
+  });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 800){
+      mobileNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  function ripple(e){
+    const btn = e.currentTarget;
+    const circle = document.createElement('span');
+    const d = Math.max(btn.clientWidth, btn.clientHeight);
+    circle.style.width = circle.style.height = d + 'px';
+    const rect = btn.getBoundingClientRect();
+    circle.style.left = (e.clientX - rect.left - d/2) + 'px';
+    circle.style.top = (e.clientY - rect.top - d/2) + 'px';
+    circle.classList.add('ripple');
+    const old = btn.querySelector('.ripple');
+    if(old) old.remove();
+    btn.appendChild(circle);
+    setTimeout(()=>circle.remove(), 650);
+  }
+</script>
+
 </body>
 </html>
-
-
