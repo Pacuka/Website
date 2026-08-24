@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
 <script>
   (function(){
     try{
-      var saved = localStorage.getItem('pacuka-theme');
-      if(saved === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+      var savedTheme = localStorage.getItem('pacuka-theme');
+      if(savedTheme === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+      var savedLang = localStorage.getItem('pacuka-lang');
+      if(savedLang === 'hu'){ document.documentElement.setAttribute('lang','hu'); }
     }catch(e){}
   })();
 </script>
@@ -48,7 +50,6 @@
     --r-lg:28px; --r-md:20px; --r-sm:12px;
   }
 
-  /* világos téma - a kapcsológomb erre vált */
   [data-theme="light"]{
     --primary:#4C5FD1;
     --on-primary:#FFFFFF;
@@ -147,6 +148,14 @@
   .theme-toggle .icon-moon{opacity:1; transform:rotate(0) scale(1);}
   [data-theme="light"] .theme-toggle .icon-sun{opacity:1; transform:rotate(0) scale(1);}
   [data-theme="light"] .theme-toggle .icon-moon{opacity:0; transform:rotate(40deg) scale(0.6);}
+
+  .lang-toggle{
+    display:flex; align-items:center; justify-content:center;
+    min-width:40px; height:40px; padding:0 10px; border-radius:10px; border:none; background:transparent;
+    color:var(--ink-2); cursor:pointer; font-family:'Roboto Mono', monospace;
+    font-size:13px; font-weight:600; letter-spacing:0.02em;
+  }
+  .lang-toggle:hover{background:var(--surface-variant); color:var(--ink);}
 
   .menu-toggle{
     display:none; flex-direction:column; justify-content:center; gap:5px;
@@ -432,37 +441,38 @@
   <div class="wrap barinner">
     <a href="https://pacuka.hu"><div class="brand"><span class="mark"></span><h3>Pacuka</h3></div></a>
     <nav>
-      <a href="#about">Rólam</a>
-      <a href="#stack">Amit használok</a>
-      <a href="#projects">Projektek</a>
-      <a href="#contact">Kapcsolat</a>
+      <a href="#about" id="nav-about">About</a>
+      <a href="#stack" id="nav-stack">Stack</a>
+      <a href="#projects" id="nav-projects">Projects</a>
+      <a href="#contact" id="nav-contact">Contact</a>
     </nav>
     <div class="bar-actions">
-      <button class="theme-toggle" id="theme-toggle" aria-label="Sötét/világos téma váltása">
+      <button class="lang-toggle" id="lang-toggle" aria-label="Switch language / Nyelv váltása">EN</button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5a8.5 8.5 0 1 1-8.9-9.9 7 7 0 0 0 8.9 9.9Z"/></svg>
       </button>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
   <div class="mobile-nav" id="mobile-nav">
-    <a href="#about">Rólam</a>
-    <a href="#stack">Amit használok</a>
-    <a href="#projects">Projektek</a>
-    <a href="#contact">Kapcsolat</a>
+    <a href="#about" id="mnav-about">About</a>
+    <a href="#stack" id="mnav-stack">Stack</a>
+    <a href="#projects" id="mnav-projects">Projects</a>
+    <a href="#contact" id="mnav-contact">Contact</a>
   </div>
 </header>
 
 <main>
   <section class="hero wrap">
     <div>
-      <h1><span id="greet"></span><span class="caret"></span>, <span class="accent">Pacuka</span> vagyok.</h1>
-      <p class="lede">Egy srác, aki szeret az interneten lenni, fordítani és kódolni. Ezen az oldalon a projektjeim és a kreatív munkáim élnek - nézz körbe nyugodtan.</p>
+      <h1><span id="greet"></span><span class="caret"></span><span id="hero-suffix">, I'm Pacuka.</span></h1>
+      <p class="lede" id="hero-lede">A guy who likes being online, translating, and coding. This site is home to my projects and creative work - feel free to look around.</p>
       <div class="hero-cta">
-        <a href="#projects" class="btn filled" onclick="ripple(event)">Projektek megtekintése</a>
-        <a href="#about" class="btn" onclick="ripple(event)">Rólam</a>
+        <a href="#projects" class="btn filled" onclick="ripple(event)" id="cta-projects">View Projects</a>
+        <a href="#about" class="btn" onclick="ripple(event)" id="cta-about">About Me</a>
       </div>
     </div>
     <div class="hero-shape">
@@ -473,29 +483,29 @@
   </section>
 
   <section id="about" class="wrap">
-    <div class="sec-head"><h2>Rólam</h2></div>
+    <div class="sec-head"><h2 id="h-about">About Me</h2></div>
     <div class="about-card reveal">
       <div class="about-mark">P</div>
       <div>
-        <p>Üdv! Pacuka vagyok, egy srác, aki szeret az interneten lenni. Fordítgatok viszonylag sok helyen :P</p>
-        <p>Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az <strong>online közösségek</strong> és a <strong>nyílt forráskódú szoftverek</strong> különleges helyet foglalnak el a szívemben.</p>
-        <p>Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg lent az elérhetőségeimen!</p>
+        <p id="about-p1">Hi! I'm Pacuka, a guy who likes being online. I translate on quite a few platforms :P</p>
+        <p id="about-p2">I'm currently a student, but in my free time I enjoy web development and other creative projects. <strong>Online communities</strong> and <strong>open-source software</strong> hold a special place in my heart.</p>
+        <p id="about-p3">On this site you'll find the work and projects I'm proud of. If you have any questions, feel free to reach out through the contacts below!</p>
       </div>
     </div>
   </section>
 
   <section id="stack" class="wrap">
     <div class="sec-head">
-      <h2>Amit használok</h2>
-      <div class="sec-sub">a napi eszköztáram</div>
+      <h2 id="h-stack">Tech Stack</h2>
+      <div class="sec-sub" id="stack-sub">my daily toolkit</div>
     </div>
     <div class="stack-grid reveal" id="stack-grid"></div>
   </section>
 
   <section id="projects" class="wrap">
     <div class="sec-head">
-      <h2>Projektjeim</h2>
-      <div class="sec-sub">4 projekt, 1 titok</div>
+      <h2 id="h-projects">Projects</h2>
+      <div class="sec-sub" id="projects-sub">4 projects, 1 secret</div>
     </div>
 
     <div id="project-featured" class="reveal"></div>
@@ -505,8 +515,8 @@
   <section id="contact" class="wrap" style="margin-top:var(--sp-4); margin-bottom:var(--sp-4);">
     <div class="contact-card reveal">
       <div>
-        <h2>Beszéljünk!</h2>
-        <p>Ha bármi kérdésed van, vagy szeretnél együttműködni, keress bátran valamelyik felületen.</p>
+        <h2 id="h-contact">Let's talk!</h2>
+        <p id="contact-p">If you have any questions or want to collaborate, feel free to reach out on any platform.</p>
       </div>
       <div class="contact-actions" id="contact-actions"></div>
     </div>
@@ -517,20 +527,20 @@
   <div class="footer-grid">
     <div>
       <h3>Pacuka</h3>
-      <p>Egy srác, aki szeret az interneten lenni, fordítani és kódolni.</p>
+      <p id="footer-tagline">A guy who likes being online, translating, and coding.</p>
     </div>
     <div>
-      <h3>Gyorslinkek</h3>
+      <h3 id="footer-h-links">Quick Links</h3>
       <div class="footer-links" id="footer-quicklinks"></div>
     </div>
     <div>
-      <h3>Kapcsolat</h3>
+      <h3 id="footer-h-contact">Contact</h3>
       <div class="footer-links" id="footer-contact"></div>
     </div>
   </div>
   <div class="footer-divider"></div>
   <div class="footer-row">
-    <div>© 2026 Pacuka.hu - minden jog fenntartva.</div>
+    <div id="footer-rights">© 2026 Pacuka.hu - all rights reserved.</div>
     <div>Not associated or approved by Duxy.hu</div>
   </div>
 </footer>
@@ -546,31 +556,88 @@
   function iconHTML(name){ return ICONS[name] ? `<span class="icon-badge">${ICONS[name]}</span>` : ""; }
   function rawIcon(name){ return ICONS[name] || ""; }
 
+  const LANG = {
+    en: {
+      code:"EN", switchTo:"HU",
+      nav:{about:"About", stack:"Stack", projects:"Projects", contact:"Contact"},
+      hero:{
+        greetings:["Hi","Hey","Hello","Yo"],
+        suffix:", I'm Pacuka.",
+        lede:"A guy who likes being online, translating, and coding. This site is home to my projects and creative work - feel free to look around.",
+        ctaProjects:"View Projects", ctaAbout:"About Me"
+      },
+      about:{
+        title:"About Me",
+        p1:"Hi! I'm Pacuka, a guy who likes being online. I translate on quite a few platforms :P",
+        p2:"I'm currently a student, but in my free time I enjoy web development and other creative projects. <strong>Online communities</strong> and <strong>open-source software</strong> hold a special place in my heart.",
+        p3:"On this site you'll find the work and projects I'm proud of. If you have any questions, feel free to reach out through the contacts below!"
+      },
+      stack:{title:"Tech Stack", sub:"my daily toolkit"},
+      projects:{title:"Projects", sub:"4 projects, 1 secret"},
+      contact:{title:"Let's talk!", p:"If you have any questions or want to collaborate, feel free to reach out on any platform."},
+      footer:{tagline:"A guy who likes being online, translating, and coding.", quicklinks:"Quick Links", contact:"Contact", rights:"© 2026 Pacuka.hu - all rights reserved."}
+    },
+    hu: {
+      code:"HU", switchTo:"EN",
+      nav:{about:"Rólam", stack:"Amit használok", projects:"Projektek", contact:"Kapcsolat"},
+      hero:{
+        greetings:["Szia","Hali","Üdv","Szeva"],
+        suffix:", Pacuka vagyok.",
+        lede:"Egy srác, aki szeret az interneten lenni, fordítani és kódolni. Ezen az oldalon a projektjeim és a kreatív munkáim élnek - nézz körbe nyugodtan.",
+        ctaProjects:"Projektek megtekintése", ctaAbout:"Rólam"
+      },
+      about:{
+        title:"Rólam",
+        p1:"Üdv! Pacuka vagyok, egy srác, aki szeret az interneten lenni. Fordítgatok viszonylag sok helyen :P",
+        p2:"Jelenleg tanulmányokat folytatok, de szabadidőmben szeretek webfejlesztéssel és egyéb kreatív projektekkel foglalkozni. Az <strong>online közösségek</strong> és a <strong>nyílt forráskódú szoftverek</strong> különleges helyet foglalnak el a szívemben.",
+        p3:"Az oldalamon megtalálod a munkáimat és projekteimet, amikre büszke vagyok. Ha bármi kérdésed van, nyugodtan keress meg lent az elérhetőségeimen!"
+      },
+      stack:{title:"Amit használok", sub:"a napi eszköztáram"},
+      projects:{title:"Projektjeim", sub:"4 projekt, 1 titok"},
+      contact:{title:"Beszéljünk!", p:"Ha bármi kérdésed van, vagy szeretnél együttműködni, keress bátran valamelyik felületen."},
+      footer:{tagline:"Egy srác, aki szeret az interneten lenni, fordítani és kódolni.", quicklinks:"Gyorslinkek", contact:"Kapcsolat", rights:"© 2026 Pacuka.hu - minden jog fenntartva."}
+    }
+  };
+
   const SITE_DATA = {
     stack: ["Python","JavaScript","TypeScript","Dart / Flutter","HTML / CSS","Bash","Docker","Git"],
 
     projects: [
       {
-        id:"firka", title:"Firka", tag:"kiemelt projekt",
+        id:"firka",
+        title:"Firka",
+        tag:{en:"featured project", hu:"kiemelt projekt"},
         mark:`<img src="https://raw.githubusercontent.com/QwIT-Development/firka/54d792eb019084a8489ab2d00b4bfa2e66012124/firka/assets/icons/dave.svg">`,
         featured:true,
-        desc:"Nyílt forráskódú, alternatív kliens az E-Kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók - mert a hivatalos appnak nem kellett volna ilyen lassúnak lennie.",
-        links:[{label:"Firka", url:"https://firka.app"},{label:"GitHub", url:"https://github.com/QwIT-Development/firka"}]
+        desc:{
+          en:"Open-source, alternative client for the Hungarian e-Kréta school system. Modern interface, fast performance, and enhanced features - because the official app shouldn't have been this slow.",
+          hu:"Nyílt forráskódú, alternatív kliens az E-Kréta iskolarendszerhez. Modern felület, gyors működés és továbbfejlesztett funkciók - mert a hivatalos appnak nem kellett volna ilyen lassúnak lennie."
+        },
+        links:[{label:{en:"Firka",hu:"Firka"}, url:"https://firka.app"},{label:{en:"GitHub",hu:"GitHub"}, url:"https://github.com/QwIT-Development/firka"}]
       },
       {
         id:"idojos", title:"Idő Jós", mark:"🧙‍♂️",
-        desc:"Egyszerű idő jóslás - gyors, pontos, a kedvenc oldalad lesz...",
-        links:[{label:"Jósló", url:"https://pacuka.github.io/IdoJos/"},{label:"GitHub", url:"https://github.com/Pacuka/IdoJos"}]
+        desc:{
+          en:"Simple weather prediction - fast, accurate, it'll be your favorite site...",
+          hu:"Egyszerű idő jóslás - gyors, pontos, a kedvenc oldalad lesz..."
+        },
+        links:[{label:{en:"Predictor",hu:"Jósló"}, url:"https://pacuka.github.io/IdoJos/"},{label:{en:"GitHub",hu:"GitHub"}, url:"https://github.com/Pacuka/IdoJos"}]
       },
       {
         id:"webmusic", title:"Pacuka's Web Music", mark:"♪",
-        desc:"Sajátfejlesztésű zenelejátszó, elsősorban mellék projekt - de nyugodtan belehallgathatsz.",
-        links:[{label:"Lejátszó", url:"https://pacuka.github.io/Music/"},{label:"GitHub", url:"https://github.com/Pacuka/Music"}]
+        desc:{
+          en:"Self-built music player, mainly a side project - but feel free to give it a listen.",
+          hu:"Sajátfejlesztésű zenelejátszó, elsősorban mellék projekt - de nyugodtan belehallgathatsz."
+        },
+        links:[{label:{en:"Player",hu:"Lejátszó"}, url:"https://pacuka.github.io/Music/"},{label:{en:"GitHub",hu:"GitHub"}, url:"https://github.com/Pacuka/Music"}]
       },
       {
-        id:"titok", title:"Titok 👀", mark:"?",
-        desc:"Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad.",
-        links:[{label:"Hamarosan", url:"#"}]
+        id:"titok", title:{en:"Secret 👀", hu:"Titok 👀"}, mark:"?",
+        desc:{
+          en:"This project is still under development, so for now it remains mysterious.",
+          hu:"Ez a projekt még fejlesztés alatt áll, így egyelőre titokzatos marad."
+        },
+        links:[{label:{en:"Soon",hu:"Hamarosan"}, url:"#"}]
       }
     ],
 
@@ -579,17 +646,11 @@
       {label:"Discord", url:"https://discord.com/user/711460576236404738", icon:"discord"},
       {label:"GitHub", url:"https://github.com/Pacuka", icon:"github"},
       {label:"YourSitee", url:"https://yoursit.ee/pacuka", icon:"yoursitee"}
-    ],
-
-    quicklinks: [
-      {label:"Rólam", url:"#about"},
-      {label:"Amit használok", url:"#stack"},
-      {label:"Projektek", url:"#projects"},
-      {label:"Kapcsolat", url:"#contact"}
     ]
   };
-  function linksHTML(links){
-    return links.map(l => `<a href="${l.url}" onclick="ripple(event)">${l.label}</a>`).join("");
+
+  function linksHTML(links, lang){
+    return links.map(l => `<a href="${l.url}" onclick="ripple(event)">${typeof l.label === "string" ? l.label : l.label[lang]}</a>`).join("");
   }
 
   function renderStack(){
@@ -597,34 +658,41 @@
     el.innerHTML = SITE_DATA.stack.map(s => `<div class="stack-chip">${s}</div>`).join("");
   }
 
-  function renderProjects(){
+  function renderProjects(lang){
     const featured = SITE_DATA.projects.find(p => p.featured);
     const rest = SITE_DATA.projects.filter(p => !p.featured);
 
     const featuredEl = document.getElementById("project-featured");
     if(featured){
+      const tag = typeof featured.tag === "string" ? featured.tag : (featured.tag ? featured.tag[lang] : (lang === "hu" ? "kiemelt projekt" : "featured project"));
+      const title = typeof featured.title === "string" ? featured.title : featured.title[lang];
+      const desc = typeof featured.desc === "string" ? featured.desc : featured.desc[lang];
       featuredEl.innerHTML = `
         <div class="featured">
           <div>
-            <div class="ftag">${featured.tag || "kiemelt projekt"}</div>
-            <h3>${featured.title}</h3>
-            <p>${featured.desc}</p>
-            <div class="flinks">${featured.links.map(l => `<a class="chip" href="${l.url}" onclick="ripple(event)">${l.label}</a>`).join("")}</div>
+            <div class="ftag">${tag}</div>
+            <h3>${title}</h3>
+            <p>${desc}</p>
+            <div class="flinks">${featured.links.map(l => `<a class="chip" href="${l.url}" onclick="ripple(event)">${typeof l.label === "string" ? l.label : l.label[lang]}</a>`).join("")}</div>
           </div>
           <div class="featured-mark">${featured.mark}</div>
         </div>`;
     }
 
     const listEl = document.getElementById("project-list");
-    listEl.innerHTML = rest.map(p => `
+    listEl.innerHTML = rest.map(p => {
+      const title = typeof p.title === "string" ? p.title : p.title[lang];
+      const desc = typeof p.desc === "string" ? p.desc : p.desc[lang];
+      return `
       <div class="prow">
         <div class="mark">${p.mark}</div>
         <div>
-          <h4>${p.title}</h4>
-          <p>${p.desc}</p>
+          <h4>${title}</h4>
+          <p>${desc}</p>
         </div>
-        <div class="rlinks">${linksHTML(p.links)}</div>
-      </div>`).join("");
+        <div class="rlinks">${linksHTML(p.links, lang)}</div>
+      </div>`;
+    }).join("");
   }
 
   function renderContact(){
@@ -636,21 +704,76 @@
       </a>`).join("");
   }
 
-  function renderFooter(){
+  function renderFooter(lang){
     document.getElementById("footer-quicklinks").innerHTML =
-      SITE_DATA.quicklinks.map(l => `<a href="${l.url}">${l.label}</a>`).join("");
+      [["about", LANG[lang].nav.about], ["stack", LANG[lang].nav.stack], ["projects", LANG[lang].nav.projects], ["contact", LANG[lang].nav.contact]]
+      .map(([id,label]) => `<a href="#${id}">${label}</a>`).join("");
     document.getElementById("footer-contact").innerHTML =
       SITE_DATA.contact.map(c => `<a href="${c.url}">${rawIcon(c.icon)}<span>${c.short || c.label}</span></a>`).join("");
   }
-  const GREETINGS = ["Szia", "Hali", "Üdv", "Szeva"];
 
-  function startGreetingTypewriter(){
+  let currentLang = "en";
+
+  function applyStaticText(lang){
+    const t = LANG[lang];
+    document.getElementById("nav-about").textContent = t.nav.about;
+    document.getElementById("nav-stack").textContent = t.nav.stack;
+    document.getElementById("nav-projects").textContent = t.nav.projects;
+    document.getElementById("nav-contact").textContent = t.nav.contact;
+    document.getElementById("mnav-about").textContent = t.nav.about;
+    document.getElementById("mnav-stack").textContent = t.nav.stack;
+    document.getElementById("mnav-projects").textContent = t.nav.projects;
+    document.getElementById("mnav-contact").textContent = t.nav.contact;
+
+    document.getElementById("hero-suffix").textContent = t.hero.suffix;
+    document.getElementById("hero-lede").textContent = t.hero.lede;
+    document.getElementById("cta-projects").textContent = t.hero.ctaProjects;
+    document.getElementById("cta-about").textContent = t.hero.ctaAbout;
+
+    document.getElementById("h-about").textContent = t.about.title;
+    document.getElementById("about-p1").textContent = t.about.p1;
+    document.getElementById("about-p2").innerHTML = t.about.p2;
+    document.getElementById("about-p3").textContent = t.about.p3;
+
+    document.getElementById("h-stack").textContent = t.stack.title;
+    document.getElementById("stack-sub").textContent = t.stack.sub;
+
+    document.getElementById("h-projects").textContent = t.projects.title;
+    document.getElementById("projects-sub").textContent = t.projects.sub;
+
+    document.getElementById("h-contact").textContent = t.contact.title;
+    document.getElementById("contact-p").textContent = t.contact.p;
+
+    document.getElementById("footer-tagline").textContent = t.footer.tagline;
+    document.getElementById("footer-h-links").textContent = t.footer.quicklinks;
+    document.getElementById("footer-h-contact").textContent = t.footer.contact;
+    document.getElementById("footer-rights").textContent = t.footer.rights;
+
+    document.getElementById("lang-toggle").textContent = t.switchTo;
+    document.documentElement.setAttribute("lang", lang);
+  }
+
+  function setLang(lang, persist){
+    currentLang = lang;
+    applyStaticText(lang);
+    renderProjects(lang);
+    renderFooter(lang);
+    startGreetingTypewriter(lang);
+    if(persist){
+      try{ localStorage.setItem('pacuka-lang', lang); }catch(e){}
+    }
+  }
+
+  let typewriterToken = 0;
+  function startGreetingTypewriter(lang){
     const el = document.getElementById('greet');
     if(!el) return;
+    const myToken = ++typewriterToken;
+    const greetings = LANG[lang].hero.greetings;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(reduceMotion){
-      el.textContent = GREETINGS[0];
+      el.textContent = greetings[0];
       return;
     }
 
@@ -661,13 +784,14 @@
 
     function pickWord(){
       let w;
-      do { w = GREETINGS[Math.floor(Math.random() * GREETINGS.length)]; }
-      while(w === lastWord && GREETINGS.length > 1);
+      do { w = greetings[Math.floor(Math.random() * greetings.length)]; }
+      while(w === lastWord && greetings.length > 1);
       lastWord = w;
       return w;
     }
 
     function tick(){
+      if(myToken !== typewriterToken) return;
       if(!deleting){
         charIndex++;
         el.textContent = current.slice(0, charIndex);
@@ -693,11 +817,15 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    let initialLang = "en";
+    try{
+      const saved = localStorage.getItem('pacuka-lang');
+      if(saved === 'hu' || saved === 'en') initialLang = saved;
+    }catch(e){}
+
     renderStack();
-    renderProjects();
     renderContact();
-    renderFooter();
-    startGreetingTypewriter();
+    setLang(initialLang, false);
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -725,6 +853,11 @@
       document.documentElement.setAttribute('data-theme', 'light');
       try{ localStorage.setItem('pacuka-theme', 'light'); }catch(e){}
     }
+  });
+
+  const langToggle = document.getElementById('lang-toggle');
+  langToggle.addEventListener('click', () => {
+    setLang(currentLang === 'en' ? 'hu' : 'en', true);
   });
 
   const menuToggle = document.getElementById('menu-toggle');
